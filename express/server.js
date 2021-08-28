@@ -54,10 +54,7 @@ router.get('/countdown', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
-  res.write("data: " + 1 + "\n\n");
-  res.write("data: " + 2 + "\n\n");
-  res.end();
-  //countdown(res, 10);
+  countdown(res, 10);
 })
 
 function countdown(res, count) {
