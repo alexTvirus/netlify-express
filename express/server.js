@@ -55,7 +55,8 @@ router.get('/countdown', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
-  var client = new net.Socket();
+  try {
+          var client = new net.Socket();
   client.connect(80, "www.google.com/", function () {
                     // the socks response must be made after the remote connection has been
                     // established
@@ -68,7 +69,14 @@ router.get('/countdown', (req, res) => {
 
                           }
 
-                        });
+                        });                  
+                            
+                          }catch (e) {
+                            res.write("data: " + e + "\n\n");
+                            res.end();
+                          }
+  
+  
   
   //countdown(res, 2);
 })
