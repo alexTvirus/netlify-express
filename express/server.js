@@ -48,7 +48,7 @@ router.get('/', (req, res) => {
   );
 });
 
-router.get('/countdown', function(req, res) {
+router.get('/countdown', (req, res) => {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
@@ -68,7 +68,7 @@ function countdown(res, count) {
     res.end();
 }
 
-router.get('/another1', function(req, res) {
+router.get('/another1', (req, res) => {
    res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end(`<h1>SSE: <span id="state"></span></h1>`);
 });
