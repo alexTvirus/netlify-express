@@ -54,7 +54,7 @@ router.get('/countdown', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
-  countdown(res, 10);
+  countdown(res, 2);
 })
 
 function countdown(res, count) {
@@ -67,7 +67,7 @@ function countdown(res, count) {
 
 router.get('/another1', (req, res) => {
    res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(`<h1>SSE: <span id="state"></span></h1>`);
+  res.end(`<h1>SSE1: <span id="state"></span></h1>`);
 });
 
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
