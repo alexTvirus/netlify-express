@@ -53,16 +53,8 @@ router.get('/countdown', function(req, res) {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
-  })
-  const refreshRate = 1000; // in milliseconds
-    return setInterval(() => {
-      const id = Date.now();
-      const data = `Hello World ${id}`;
-      const message =
-        `retry: ${refreshRate}\nid:${id}\ndata: ${data}\n\n`;
-      res.write(message);
-    }, refreshRate);
-  //countdown(res, 10);
+  });
+  countdown(res, 10);
 })
 
 function countdown(res, count) {
