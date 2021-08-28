@@ -13,7 +13,7 @@ router.get('/', (req, res) => {
 <head>
   <script>
   if (!!window.EventSource) {
-    var source = new EventSource('/countdown')
+    var source = new EventSource('/.netlify/functions/server/countdown')
 
     source.addEventListener('message', function(e) {
       document.getElementById('data').innerHTML = e.data
