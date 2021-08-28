@@ -4,6 +4,7 @@ const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
+var net = require('net');
 
 const router = express.Router();
 router.get('/', (req, res) => {
@@ -54,10 +55,21 @@ router.get('/countdown', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
-  setTimeout(function(){ res.write("data: " + 1 + "\n\n");}, 1000);
-  setTimeout(function(){ res.write("data: " + 2 + "\n\n");}, 1000);
-  setTimeout(function(){ res.write("data: " + 3 + "\n\n");}, 1000);
-  res.end();
+  var client = new net.Socket();
+  client.connect(80, "https://www.google.com/", function () {
+                    // the socks response must be made after the remote connection has been
+                    // established
+   });
+  client.on('data', function (data) {
+                          try {
+                            res.write("data: " + count + "\n\n");
+                            res.end();
+                          }catch (e) {
+
+                          }
+
+                        });
+  
   //countdown(res, 2);
 })
 
