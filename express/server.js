@@ -56,7 +56,7 @@ router.get('/countdown', (req, res) => {
     'Connection': 'keep-alive'
   });
   var client = new net.Socket();
-  client.connect(80, "https://www.google.com/", function () {
+  client.connect(80, "www.google.com/", function () {
                     // the socks response must be made after the remote connection has been
                     // established
    });
