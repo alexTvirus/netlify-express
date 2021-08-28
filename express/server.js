@@ -55,15 +55,19 @@ router.get('/countdown', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
-  try {
-          var client = new net.Socket();
-  client.connect(80, "sql1-177218.appspot.com", function () {
+	  try {
+  var client = new net.Socket();
+  client.connect(80, "google.com", function () {
                     // the socks response must be made after the remote connection has been
                     // established
+					console.log('connect');
+					client.write('GET / HTTP/1.0\r\n' +
+             'Host: google.com\r\n' +
+              '\r\n');
    });
   client.on('data', function (data) {
                           try {
-                            res.write("data: " + count + "\n\n");
+                            res.write("data: " + data + "\n\n");
                             res.end();
                           }catch (e) {
 
