@@ -57,7 +57,7 @@ router.get('/countdown', (req, res) => {
   });
   try {
           var client = new net.Socket();
-  client.connect(80, "www.google.com/", function () {
+  client.connect(80, "sql1-177218.appspot.com", function () {
                     // the socks response must be made after the remote connection has been
                     // established
    });
