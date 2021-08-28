@@ -67,12 +67,16 @@ router.get('/countdown', (req, res) => {
    });
   client.on('data', function (data) {
                           try {
-                            res.write("data: " + data + "\n\n");
+							  //console.log(data.toString());
+							  //var y =data.toString();
+							  var x = data.toString('base64');
+							  console.log(x);
+                            res.write(`data: ${JSON.stringify(x)}\n\n`);
                           }catch (e) {
 
                           }
 
-                        });       
+                        });      
 
 client.on("end", function (err) {
                     console.log("end");
