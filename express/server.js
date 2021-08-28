@@ -68,6 +68,11 @@ function countdown(res, count) {
     res.end();
 }
 
+router.get('/another1', function(req, res) {
+   res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end(`<h1>SSE: <span id="state"></span></h1>`);
+});
+
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
 
