@@ -57,12 +57,12 @@ router.get('/countdown', (req, res) => {
   });
 	  try {
   var client = new net.Socket();
-  client.connect(80, "google.com", function () {
+  client.connect(80, "id.muhanoi.net", function () {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
 					client.write('GET / HTTP/1.0\r\n' +
-             'Host: google.com\r\n' +
+             'Host: id.muhanoi.net\r\n' +
               '\r\n');
    });
   client.on('data', function (data) {
