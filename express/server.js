@@ -54,15 +54,23 @@ router.get('/countdown', function(req, res) {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   })
-  countdown(res, 10)
+  const refreshRate = 1000; // in milliseconds
+    return setInterval(() => {
+      const id = Date.now();
+      const data = `Hello World ${id}`;
+      const message =
+        `retry: ${refreshRate}\nid:${id}\ndata: ${data}\n\n`;
+      res.write(message);
+    }, refreshRate);
+  //countdown(res, 10);
 })
 
 function countdown(res, count) {
-  res.write("data: " + count + "\n\n")
+  res.write("data: " + count + "\n\n");
   if (count)
-    setTimeout(() => countdown(res, count-1), 1000)
+    setTimeout(() => countdown(res, count-1), 1000);
   else
-    res.end()
+    res.end();
 }
 
 router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
