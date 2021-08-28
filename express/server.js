@@ -8,8 +8,44 @@ const bodyParser = require('body-parser');
 const router = express.Router();
 router.get('/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.write('<h1>Hello from Express.js!</h1>');
-  res.end();
+  res.end(`
+    <html>
+<head>
+  <script>
+  if (!!window.EventSource) {
+    var source = new EventSource('/countdown')
+
+    source.addEventListener('message', function(e) {
+      document.getElementById('data').innerHTML = e.data
+    }, false)
+
+    source.addEventListener('open', function(e) {
+      document.getElementById('state').innerHTML = "Connected"
+    }, false)
+
+    source.addEventListener('error', function(e) {
+      const id_state = document.getElementById('state')
+      if (e.eventPhase == EventSource.CLOSED)
+        source.close()
+      if (e.target.readyState == EventSource.CLOSED) {
+        id_state.innerHTML = "Disconnected"
+      }
+      else if (e.target.readyState == EventSource.CONNECTING) {
+        id_state.innerHTML = "Connecting..."
+      }
+    }, false)
+  } else {
+    console.log("Your browser doesn't support SSE")
+  }
+  </script>
+</head>
+<body>
+  <h1>SSE: <span id="state"></span></h1>
+  <h3>Data: <span id="data"></span></h3>
+</body>
+</html>
+  `
+  );
 });
 
 router.get('/countdown', function(req, res) {
