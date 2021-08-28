@@ -68,12 +68,30 @@ router.get('/countdown', (req, res) => {
   client.on('data', function (data) {
                           try {
                             res.write("data: " + data + "\n\n");
-                            res.end();
                           }catch (e) {
 
                           }
 
-                        });                  
+                        });       
+
+client.on("end", function (err) {
+                    console.log("end");
+					//global[sessionid]['error']=true;
+                    console.log(err);
+                });
+
+                client.on("close", function (err) {
+                    console.log("close");
+                    res.end();
+                    console.log(err);
+                });
+
+                client.on("error", function (err) {
+                    //global[sessionid]['error']=true;
+                    console.log("error");
+					res.end();
+                    console.log(err);
+                });						
                             
                           }catch (e) {
                             res.write("data: " + e + "\n\n");
