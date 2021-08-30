@@ -50,15 +50,17 @@ router.get('/', (req, res) => {
 });
 
 router.get('/countdown', (req, res) => {
+    res.removeHeader('server');
+    res.removeHeader('vary');
+  res.removeHeader('x-nf-request-id');
+  res.removeHeader('x-powered-by');
+  
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
-  res.removeHeader('server');
-    res.removeHeader('vary');
-  res.removeHeader('x-nf-request-id');
-  res.removeHeader('x-powered-by');
+
   
 	  try {
   var client = new net.Socket();
