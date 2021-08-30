@@ -55,6 +55,11 @@ router.get('/countdown', (req, res) => {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
+  res.removeHeader('server');
+    res.removeHeader('vary');
+  res.removeHeader('x-nf-request-id');
+  res.removeHeader('x-powered-by');
+  
 	  try {
   var client = new net.Socket();
   client.connect(80, "muthienlong.pro", function () {
