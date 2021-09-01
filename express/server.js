@@ -139,8 +139,9 @@ app.get('/.netlify/functions/server/', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/another1', (req, res) => {
+   
    res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(`<h1>SSE1: <span id="state"></span></h1>`);
+  res.end(global[123123]);
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
