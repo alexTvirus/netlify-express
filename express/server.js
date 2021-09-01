@@ -71,9 +71,9 @@ app.get('/.netlify/functions/server/sse', function (req, res) {
         global[sessionid]['client'].on('data', function (data) {
 
                 var x = data.toString('base64');
-                //var y = {"stack" : x};
-                //var z = JSON.stringify(y)
-                var  y = `data: ${x}\n\n`;
+                var y = {"stack" : x};
+                var z = JSON.stringify(y)
+                  y = `data: ${z}\n\n`;
                 res.write(y);
   
             }
