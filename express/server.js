@@ -52,15 +52,16 @@ app.get('/.netlify/functions/server/sse', function (req, res) {
 		});
 		 console.log(sessionid+" sse");
         req.params = params(req);
-        var sessionid = req.params.sessionid.trim();
+        var sessionid = req.params.sessionid;
         var ip = req.params.ip;
         var port = req.params.port;
         global[sessionid] = [];
         global[sessionid]['sessionid'] = sessionid.trim();
         global[sessionid]['ip'] = ip.trim();
-        global[sessionid]['port'] = port.trim();
+        global[sessionid]['port'] = port;
 
-        res.write("sessionid"+"ip"+"port");
+        res.write(sessionid+""+ip+""+port);
+        res.end();
         var client = new net.Socket();
         global[sessionid]['chunks']=[];
         global[sessionid]['client'] = client;
