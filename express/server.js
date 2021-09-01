@@ -166,24 +166,20 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
-    res.removeHeader('server');
-    res.removeHeader('vary');
-  res.removeHeader('x-nf-request-id');
-  res.removeHeader('x-powered-by');
-  
-  res.writeHead(200, {
+ res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Origin': '*'
   });
 
   
 	  try {
   
   client.connect(80, "muthienlong.pro", function () {
-					client.write('GET / HTTP/1.0\r\n' +
-             'Host: muthienlong.pro\r\n' +
-              '\r\n');
+					//client.write('GET / HTTP/1.0\r\n' +
+          //   'Host: muthienlong.pro\r\n' +
+          //    '\r\n');
    });
   client.on('data', function (data) {
                           try {
