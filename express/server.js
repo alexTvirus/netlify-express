@@ -28,12 +28,14 @@ var params = function (req) {
 
 app.post('/.netlify/functions/server/post', function (req, res) {
         var body = req.body;
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(body);
         req.params=params(req);
         var sessionid = req.params.sessionid.trim();
-         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(global[sessionid]['client']);
         if (global[sessionid]['client']) {
             try {
+              res.writeHead(200, { 'Content-Type': 'text/html' });
+              res.end(global[sessionid]['sessionid']);
                 //console.log(global[sessionid]['sessionid']);
                 global[sessionid]['client'].write(body);
             } catch (e) {
