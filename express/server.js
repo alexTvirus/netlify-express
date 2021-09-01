@@ -30,6 +30,8 @@ app.post('/.netlify/functions/server/post', function (req, res) {
         var body = req.body;
         req.params=params(req);
         var sessionid = req.params.sessionid.trim();
+         res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end(global[sessionid]['client']);
         if (global[sessionid]['client']) {
             try {
                 //console.log(global[sessionid]['sessionid']);
@@ -60,8 +62,6 @@ app.get('/.netlify/functions/server/sse', function (req, res) {
         global[sessionid]['ip'] = ip.trim();
         global[sessionid]['port'] = port;
 
-        res.write(sessionid+""+ip+""+port);
-        res.end();
         var client = new net.Socket();
         global[sessionid]['chunks']=[];
         global[sessionid]['client'] = client;
