@@ -1,4 +1,4 @@
-'use strict';
+//'use strict';
 const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
@@ -172,7 +172,7 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
   res.removeHeader('x-powered-by');
   
   res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
+    //'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive'
   });
