@@ -26,22 +26,20 @@ var params = function (req) {
 }
 
 app.post('/.netlify/functions/server/post', function (req, res) {
-    //var x =req.body;
-    req.on('data',async (chunk) => {
+    var body = req.body;
         req.params=params(req);
         var sessionid = req.params.sessionid.trim();
         console.log(sessionid+" post");
         if (global[sessionid]['client']) {
             try {
                 //console.log(global[sessionid]['sessionid']);
-                global[sessionid]['client'].write(chunk);
-                res.writeHead(200, { 'Content-Type': 'text/html' });
-                res.end(`<h1>SSE1: <span id="state"></span></h1>`);
+                global[sessionid]['client'].write(body);
             } catch (e) {
 
             }
         }
-    });
+    res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end();
 });
 
 app.get('/.netlify/functions/server/sse', function (req, res) {
