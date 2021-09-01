@@ -181,9 +181,9 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 	  try {
   
   client.connect(80, "muthienlong.pro", function () {
-					//client.write('GET / HTTP/1.0\r\n' +
-          //   'Host: muthienlong.pro\r\n' +
-           //   '\r\n');
+					client.write('GET / HTTP/1.0\r\n' +
+             'Host: muthienlong.pro\r\n' +
+              '\r\n');
    });
   client.on('data', function (data) {
                           try {
