@@ -9,9 +9,9 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
-var client = new net.Socket();
-var net = require('net');
 
+var net = require('net');
+var client = new net.Socket();
 var params = function (req) {
     let q = req.url.split('?'), result = {};
     if (q.length >= 2) {
