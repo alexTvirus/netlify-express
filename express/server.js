@@ -214,13 +214,11 @@ client.on("end", function (err) {
                     //global[sessionid]['error']=true;
                      res.write(`data: ${JSON.stringify("error")}\n\n`);
                     console.log("error");
-					res.end();
                     console.log(err);
                 });						
                             
                           }catch (e) {
                             res.write(`data: ${JSON.stringify(e)}\n\n`);
-                            res.end();
                           }
   
   
