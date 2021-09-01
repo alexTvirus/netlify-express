@@ -60,6 +60,7 @@ app.get('/.netlify/functions/server/sse', function (req, res) {
         global[sessionid]['ip'] = ip.trim();
         global[sessionid]['port'] = port.trim();
 
+        res.write("sessionid"+"ip"+"port");
         var client = new net.Socket();
         global[sessionid]['chunks']=[];
         global[sessionid]['client'] = client;
