@@ -148,10 +148,11 @@ app.get('/.netlify/functions/server/another1', (req, res) => {
 app.get('/.netlify/functions/server/another2', (req, res) => {
         req.params = params(req);
         var sessionid = req.params.sessionid.trim();
+        var str = req.params.str.trim();
         global[sessionid] = [];
-        global[sessionid]['sessionid'] = sessionid.trim();
+        global[sessionid]['sessionid'] = str;
    res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end();
+  res.end(str);
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
