@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
-
+var client;
 var net = require('net');
 
 var params = function (req) {
@@ -157,6 +157,14 @@ app.get('/.netlify/functions/server/another2', (req, res) => {
   res.end(str);
 });
 
+app.get('/.netlify/functions/server/test1', (req, res) => {
+   client.write('GET / HTTP/1.0\r\n' +
+             'Host: muthienlong.pro\r\n' +
+              '\r\n');
+   res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end();
+});
+
 app.get('/.netlify/functions/server/countdown', (req, res) => {
     res.removeHeader('server');
     res.removeHeader('vary');
@@ -171,14 +179,11 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
   
 	  try {
-  var client = new net.Socket();
+  client = new net.Socket();
   client.connect(80, "muthienlong.pro", function () {
-                    // the socks response must be made after the remote connection has been
-                    // established
-					console.log('connect');
-					client.write('GET / HTTP/1.0\r\n' +
-             'Host: muthienlong.pro\r\n' +
-              '\r\n');
+					//client.write('GET / HTTP/1.0\r\n' +
+          //   'Host: muthienlong.pro\r\n' +
+           //   '\r\n');
    });
   client.on('data', function (data) {
                           try {
