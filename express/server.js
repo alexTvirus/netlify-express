@@ -4,8 +4,8 @@ const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
-app.use(bodyParser.json({limit: '50mb'}));
-app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+//app.use(bodyParser.json({limit: '50mb'}));
+//app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
@@ -27,20 +27,20 @@ var params = function (req) {
 }
 
 app.post('/.netlify/functions/server/post', function (req, res) {
-    var body = req.body;
+        var body = req.body;
         req.params=params(req);
         var sessionid = req.params.sessionid.trim();
         console.log(sessionid+" post");
-        if (global[sessionid]['client']) {
-            try {
+        //if (global[sessionid]['client']) {
+        //    try {
                 //console.log(global[sessionid]['sessionid']);
-                global[sessionid]['client'].write(body);
-            } catch (e) {
+        //        global[sessionid]['client'].write(body);
+        //    } catch (e) {
 
-            }
-        }
+         //   }
+       // }
     res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end();
+    res.end(body);
 });
 
 app.get('/.netlify/functions/server/sse', function (req, res) {
