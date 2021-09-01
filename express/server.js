@@ -3,6 +3,9 @@ const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
+app.use(bodyParser.json({limit: '50mb'}));
+app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
+app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 //const bodyParser = require('body-parser');
 var net = require('net');
@@ -31,6 +34,8 @@ app.post('/.netlify/functions/server/post', function (req, res) {
             try {
                 //console.log(global[sessionid]['sessionid']);
                 global[sessionid]['client'].write(chunk);
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end(`<h1>SSE1: <span id="state"></span></h1>`);
             } catch (e) {
 
             }
