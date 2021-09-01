@@ -29,7 +29,12 @@ var params = function (req) {
 app.post('/.netlify/functions/server/post', function (req, res) {
         var body = req.body;
         res.writeHead(200, { 'Content-Type': 'text/html' });
-        res.end(body);
+        if(body){
+          res.end("co");
+        }else{
+          res.end("ko");
+        }
+        
         //req.params=params(req);
         //var sessionid = req.params.sessionid.trim();
         //if (global[sessionid]['client']) {
