@@ -3,8 +3,21 @@ const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
+var http = require('http');
 const bodyParser = require('body-parser');
 var net = require('net');
+
+var test = http.createServer(function (req, res) {
+    if (req.url.includes("/.netlify/functions/server/")) {
+        // Write a response to the client
+    res.write('Hello World!');
+  
+    // End the response
+    res.end();
+    }
+
+});
+
 
 const router = express.Router();
 app.get('/.netlify/functions/server/', (req, res) => {
@@ -134,5 +147,5 @@ app.use(bodyParser.json());
 //app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
-module.exports = app;
-module.exports.handler = serverless(app);
+module.exports = test;
+module.exports.handler = serverless(test);
