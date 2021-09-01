@@ -30,7 +30,8 @@ app.post('/.netlify/functions/server/post', function (req, res) {
         var body = req.body;
         res.writeHead(200, { 'Content-Type': 'text/html' });
         if(body){
-          res.end("co");
+          var s = body.slice(2,body.length).toString();
+          res.end(s);
         }else{
           res.end("ko");
         }
