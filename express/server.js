@@ -10,24 +10,7 @@ app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
 
-var net = require('net');<!DOCTYPE html>
-<html>
-<body>
-
-<h1>Getting server updates</h1>
-<div id="result"></div>
-
-<script>
-
-  var source = new EventSource("https://612fb6a97db5070008de82bd--laughing-goldstine-0c814c.netlify.app/.netlify/functions/server/sse?sessionid=123123123&ip=google.com&port=80");
-  source.onmessage = function(event) {
-    document.getElementById("result").innerHTML += event.data + "<br>";
-  };
-
-</script>
-
-</body>
-</html>
+var net = require('net');
 
 var params = function (req) {
     let q = req.url.split('?'), result = {};
