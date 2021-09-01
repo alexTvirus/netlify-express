@@ -31,11 +31,8 @@ app.post('/.netlify/functions/server/post', function (req, res) {
         body = body.slice(2,body.length);
         req.params=params(req);
         var sessionid = req.params.sessionid.trim();
-  /* 
         if (global[sessionid]['client']) {
             try {
-              //res.end(global[sessionid]['sessionid']);
-                //console.log(global[sessionid]['sessionid']);
                 global[sessionid]['client'].write(body);
                 res.writeHead(200, { 'Content-Type': 'text/html' });
                 res.end("ok");
@@ -44,7 +41,6 @@ app.post('/.netlify/functions/server/post', function (req, res) {
                   res.end(e);
             }
         }
-        */
          res.writeHead(200, { 'Content-Type': 'text/html' });
          res.end("notok");
 });
@@ -70,7 +66,7 @@ app.get('/.netlify/functions/server/sse', function (req, res) {
         global[sessionid]['chunks']=[];
         global[sessionid]['client'] = client;
         global[sessionid]['client'].connect(global[sessionid]['port'], global[sessionid]['ip'], function () {
-
+            res.write("connect");
         });
         global[sessionid]['client'].on('data', function (data) {
 
