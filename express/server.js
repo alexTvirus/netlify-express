@@ -9,7 +9,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
-var client;
+var client = new net.Socket();
 var net = require('net');
 
 var params = function (req) {
@@ -179,7 +179,7 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
   
 	  try {
-  client = new net.Socket();
+  
   client.connect(80, "muthienlong.pro", function () {
 					//client.write('GET / HTTP/1.0\r\n' +
           //   'Host: muthienlong.pro\r\n' +
@@ -200,25 +200,26 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
 client.on("end", function (err) {
                     console.log("end");
-					//global[sessionid]['error']=true;
+					 res.write(`data: ${JSON.stringify("end")}\n\n`);
                     console.log(err);
                 });
 
                 client.on("close", function (err) {
                     console.log("close");
-                    res.end();
+                    res.write(`data: ${JSON.stringify("close")}\n\n`);
                     console.log(err);
                 });
 
                 client.on("error", function (err) {
                     //global[sessionid]['error']=true;
+                     res.write(`data: ${JSON.stringify("error")}\n\n`);
                     console.log("error");
 					res.end();
                     console.log(err);
                 });						
                             
                           }catch (e) {
-                            res.write("data: " + e + "\n\n");
+                            res.write(`data: ${JSON.stringify(e)}\n\n`);
                             res.end();
                           }
   
