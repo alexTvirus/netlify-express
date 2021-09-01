@@ -33,7 +33,7 @@ app.post('/.netlify/functions/server/post', function (req, res) {
         var sessionid = req.params.sessionid.trim();
         if (global[sessionid]['client']) {
             try {
-              res.end(global[sessionid]['sessionid']);
+              //res.end(global[sessionid]['sessionid']);
                 //console.log(global[sessionid]['sessionid']);
                 global[sessionid]['client'].write(body);
                 res.writeHead(200, { 'Content-Type': 'text/html' });
