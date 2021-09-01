@@ -10,7 +10,24 @@ app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
 
-var net = require('net');
+var net = require('net');<!DOCTYPE html>
+<html>
+<body>
+
+<h1>Getting server updates</h1>
+<div id="result"></div>
+
+<script>
+
+  var source = new EventSource("https://612fb6a97db5070008de82bd--laughing-goldstine-0c814c.netlify.app/.netlify/functions/server/sse?sessionid=123123123&ip=google.com&port=80");
+  source.onmessage = function(event) {
+    document.getElementById("result").innerHTML += event.data + "<br>";
+  };
+
+</script>
+
+</body>
+</html>
 
 var params = function (req) {
     let q = req.url.split('?'), result = {};
@@ -29,21 +46,23 @@ var params = function (req) {
 app.post('/.netlify/functions/server/post', function (req, res) {
         var body = req.body;
         body = body.slice(2,body.length);
-        req.params=params(req);
-        var sessionid = req.params.sessionid.trim();
-        if (global[sessionid]['client']) {
-            try {
-              res.writeHead(200, { 'Content-Type': 'text/html' });
-              res.end(global[sessionid]['sessionid']);
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        res.end();
+        //req.params=params(req);
+        //var sessionid = req.params.sessionid.trim();
+        //if (global[sessionid]['client']) {
+        //    try {
+        //      res.writeHead(200, { 'Content-Type': 'text/html' });
+        //      res.end(global[sessionid]['sessionid']);
                 //console.log(global[sessionid]['sessionid']);
-                global[sessionid]['client'].write(body);
-            } catch (e) {
-                  res.writeHead(200, { 'Content-Type': 'text/html' });
-                  res.end(e);
-            }
-        }
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end();
+        //        global[sessionid]['client'].write(body);
+        //    } catch (e) {
+        //          res.writeHead(200, { 'Content-Type': 'text/html' });
+        //          res.end(e);
+        //    }
+       // }
+     // res.writeHead(200, { 'Content-Type': 'text/html' });
+     // res.end();
 });
 
 app.get('/.netlify/functions/server/sse', function (req, res) {
