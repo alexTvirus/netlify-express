@@ -146,6 +146,7 @@ app.get('/.netlify/functions/server/another1', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/another2', (req, res) => {
+        req.params = params(req);
         var sessionid = req.params.sessionid.trim();
         global[sessionid] = [];
         global[sessionid]['sessionid'] = sessionid.trim();
