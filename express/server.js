@@ -177,7 +177,7 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 	  try {
  client = new net.Socket()
   client.connect(80, "muthienlong.pro", function () {
-					client.write('GET / HTTP/1.0\r\n' +
+					client.write('GET / HTTP/1.1\r\n' +
              'Host: muthienlong.pro\r\n' +
               '\r\n');
    });
@@ -196,25 +196,25 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
 client.on("end", function (err) {
                     console.log("end");
-					 res.write(`data: ${JSON.stringify("end")}\n\n`);
+					 //res.write(`data: ${JSON.stringify("end")}\n\n`);
                     console.log(err);
                 });
 
                 client.on("close", function (err) {
                     console.log("close");
-                    res.write(`data: ${JSON.stringify("close")}\n\n`);
+                    //res.write(`data: ${JSON.stringify("close")}\n\n`);
                     console.log(err);
                 });
 
                 client.on("error", function (err) {
                     //global[sessionid]['error']=true;
-                     res.write(`data: ${JSON.stringify("error")}\n\n`);
+                    // res.write(`data: ${JSON.stringify("error")}\n\n`);
                     console.log("error");
                     console.log(err);
                 });						
                             
                           }catch (e) {
-                            res.write(`data: ${JSON.stringify(e)}\n\n`);
+                            //res.write(`data: ${JSON.stringify(e)}\n\n`);
                           }
   
   
