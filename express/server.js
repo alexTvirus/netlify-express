@@ -11,7 +11,7 @@ app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 var global = {};
 
 var net = require('net');
-var client = new net.Socket();
+var client ;
 var params = function (req) {
     let q = req.url.split('?'), result = {};
     if (q.length >= 2) {
@@ -175,11 +175,11 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
   
 	  try {
-  
+ client = new net.Socket()
   client.connect(80, "muthienlong.pro", function () {
-					//client.write('GET / HTTP/1.0\r\n' +
-          //   'Host: muthienlong.pro\r\n' +
-          //    '\r\n');
+					client.write('GET / HTTP/1.0\r\n' +
+             'Host: muthienlong.pro\r\n' +
+              '\r\n');
    });
   client.on('data', function (data) {
                           try {
