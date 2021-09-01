@@ -3,11 +3,12 @@ const express = require('express');
 const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
+const bodyParser = require('body-parser');
 app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
-//const bodyParser = require('body-parser');
+
 var net = require('net');
 
 var params = function (req) {
