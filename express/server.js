@@ -8,6 +8,7 @@ app.use(bodyParser.json({limit: '50mb'}));
 app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
+var global = {};
 
 var net = require('net');
 
