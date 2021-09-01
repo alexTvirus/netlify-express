@@ -28,6 +28,7 @@
     "netlify-lambda": "^1.6.3",
     "net": "^1.0.2",
     "nodemon": "^1.19.2",
-    "serverless-http": "^2.3.0"
+    "serverless-http": "^2.3.0",
+    "http": "0.0.1-security",
   }
 }
