@@ -33,17 +33,18 @@ app.post('/.netlify/functions/server/post', function (req, res) {
         var sessionid = req.params.sessionid.trim();
         if (global[sessionid]['client']) {
             try {
-              res.writeHead(200, { 'Content-Type': 'text/html' });
               res.end(global[sessionid]['sessionid']);
                 //console.log(global[sessionid]['sessionid']);
                 global[sessionid]['client'].write(body);
+                res.writeHead(200, { 'Content-Type': 'text/html' });
+                res.end("ok");
             } catch (e) {
                   res.writeHead(200, { 'Content-Type': 'text/html' });
                   res.end(e);
             }
         }
-      res.writeHead(200, { 'Content-Type': 'text/html' });
-      res.end();
+         res.writeHead(200, { 'Content-Type': 'text/html' });
+         res.end("notok");
 });
 
 app.get('/.netlify/functions/server/sse', function (req, res) {
@@ -74,7 +75,7 @@ app.get('/.netlify/functions/server/sse', function (req, res) {
                 var x = data.toString('base64');
                 //var y = {"stack" : x};
                 //var z = JSON.stringify(y)
-                 y = `data: ${x}\n\n`;
+                var  y = `data: ${x}\n\n`;
                 res.write(y);
   
             }
