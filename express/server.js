@@ -31,6 +31,7 @@ app.post('/.netlify/functions/server/post', function (req, res) {
         body = body.slice(2,body.length);
         req.params=params(req);
         var sessionid = req.params.sessionid.trim();
+  /* 
         if (global[sessionid]['client']) {
             try {
               //res.end(global[sessionid]['sessionid']);
@@ -43,6 +44,7 @@ app.post('/.netlify/functions/server/post', function (req, res) {
                   res.end(e);
             }
         }
+        */
          res.writeHead(200, { 'Content-Type': 'text/html' });
          res.end("notok");
 });
