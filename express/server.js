@@ -4,8 +4,92 @@ const path = require('path');
 const serverless = require('serverless-http');
 const app = express();
 
-const bodyParser = require('body-parser');
+//const bodyParser = require('body-parser');
 var net = require('net');
+
+var params = function (req) {
+    let q = req.url.split('?'), result = {};
+    if (q.length >= 2) {
+        q[1].split('&').forEach((item) => {
+            try {
+                result[item.split('=')[0]] = item.split('=')[1];
+            } catch (e) {
+                result[item.split('=')[0]] = '';
+            }
+        })
+    }
+    return result;
+}
+
+app.post('/.netlify/functions/server/post', function (req, res) {
+    //var x =req.body;
+    req.on('data',async (chunk) => {
+        req.params=params(req);
+        var sessionid = req.params.sessionid.trim();
+        console.log(sessionid+" post");
+        if (global[sessionid]['client']) {
+            try {
+                //console.log(global[sessionid]['sessionid']);
+                global[sessionid]['client'].write(chunk);
+            } catch (e) {
+
+            }
+        }
+    });
+});
+
+app.get('/.netlify/functions/server/sse', function (req, res) {
+		res.writeHead(200, {
+		'Content-Type': 'text/event-stream',
+		'Cache-Control': 'no-cache',
+		'Connection': 'keep-alive',
+		'Access-Control-Allow-Origin': '*'
+		});
+		 console.log(sessionid+" sse");
+        req.params = params(req);
+        var sessionid = req.params.sessionid.trim();
+        var ip = req.params.ip;
+        var port = req.params.port;
+        global[sessionid] = [];
+        global[sessionid]['sessionid'] = sessionid.trim();
+        global[sessionid]['ip'] = ip.trim();
+        global[sessionid]['port'] = port.trim();
+
+        var client = new net.Socket();
+        global[sessionid]['chunks']=[];
+        global[sessionid]['client'] = client;
+        global[sessionid]['client'].connect(global[sessionid]['port'], global[sessionid]['ip'], function () {
+
+        });
+        global[sessionid]['client'].on('data', function (data) {
+
+                var x = data.toString('base64');
+                //var y = {"stack" : x};
+                //var z = JSON.stringify(y)
+                 y = `data: ${x}\n\n`;
+                res.write(y);
+  
+            }
+        );
+
+        global[sessionid]['client'].on("end", function (err) {
+            console.log("end");
+            console.log(err);
+        });
+
+        global[sessionid]['client'].on("close", function (err) {
+			delete global.sessionId;
+            console.log("close");
+			res.end();
+            console.log(err);
+        });
+
+        global[sessionid]['client'].on("error", function (err) {
+            //global[sessionid]['error']=true;
+            console.log("error");
+            console.log(err);
+        });
+    });
 
 const router = express.Router();
 app.get('/.netlify/functions/server/', (req, res) => {
