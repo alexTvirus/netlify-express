@@ -166,18 +166,25 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
- res.writeHead(200, {
+    res.removeHeader('server');
+    res.removeHeader('vary');
+  res.removeHeader('x-nf-request-id');
+  res.removeHeader('x-powered-by');
+  
+  res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'Access-Control-Allow-Origin': '*'
+    'Connection': 'keep-alive'
   });
 
   
 	  try {
- client = new net.Socket()
+  var client = new net.Socket();
   client.connect(80, "muthienlong.pro", function () {
-					client.write('GET / HTTP/1.1\r\n' +
+                    // the socks response must be made after the remote connection has been
+                    // established
+					console.log('connect');
+					client.write('GET / HTTP/1.0\r\n' +
              'Host: muthienlong.pro\r\n' +
               '\r\n');
    });
@@ -196,25 +203,26 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
 client.on("end", function (err) {
                     console.log("end");
-					 //res.write(`data: ${JSON.stringify("end")}\n\n`);
+					//global[sessionid]['error']=true;
                     console.log(err);
                 });
 
                 client.on("close", function (err) {
                     console.log("close");
-                    //res.write(`data: ${JSON.stringify("close")}\n\n`);
+                    res.end();
                     console.log(err);
                 });
 
                 client.on("error", function (err) {
                     //global[sessionid]['error']=true;
-                    // res.write(`data: ${JSON.stringify("error")}\n\n`);
                     console.log("error");
+					res.end();
                     console.log(err);
                 });						
                             
                           }catch (e) {
-                            //res.write(`data: ${JSON.stringify(e)}\n\n`);
+                            res.write("data: " + e + "\n\n");
+                            res.end();
                           }
   
   
