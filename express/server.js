@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 var net = require('net');
 
 const router = express.Router();
-router.get('/', (req, res) => {
+app.get('/.netlify/functions/server/', (req, res) => {
   res.writeHead(200, { 'Content-Type': 'text/html' });
   res.end(`
     <html>
@@ -49,7 +49,7 @@ router.get('/', (req, res) => {
   );
 });
 
-router.get('/countdown', (req, res) => {
+app.get('/.netlify/functions/server/countdown', (req, res) => {
     res.removeHeader('server');
     res.removeHeader('vary');
   res.removeHeader('x-nf-request-id');
@@ -131,7 +131,7 @@ router.get('/another', (req, res) => res.json({ route: req.originalUrl }));
 router.post('/', (req, res) => res.json({ postBody: req.body }));
 
 app.use(bodyParser.json());
-app.use('/.netlify/functions/server', router);  // path must route to lambda
+//app.use('/.netlify/functions/server', router);  // path must route to lambda
 app.use('/', (req, res) => res.sendFile(path.join(__dirname, '../index.html')));
 
 module.exports = app;
