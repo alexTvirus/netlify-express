@@ -141,7 +141,15 @@ app.get('/.netlify/functions/server/', (req, res) => {
 app.get('/.netlify/functions/server/another1', (req, res) => {
    
    res.writeHead(200, { 'Content-Type': 'text/html' });
-  res.end(global[123123]);
+  res.end(global[123123]['sessionid']);
+});
+
+app.get('/.netlify/functions/server/another2', (req, res) => {
+        var sessionid = req.params.sessionid.trim();
+        global[sessionid] = [];
+        global[sessionid]['sessionid'] = sessionid.trim();
+   res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end();
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
