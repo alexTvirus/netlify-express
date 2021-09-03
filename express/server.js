@@ -166,17 +166,17 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
-    res.removeHeader('server');
-    res.removeHeader('vary');
-  res.removeHeader('x-nf-request-id');
-  res.removeHeader('x-powered-by');
+   // res.removeHeader('server');
+   // res.removeHeader('vary');
+  //res.removeHeader('x-nf-request-id');
+  //res.removeHeader('x-powered-by');
   
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Origin': 'file:///D:/New%20Text%20Document.html'
+    'Access-Control-Allow-Origin': '*'
   });
 
   
