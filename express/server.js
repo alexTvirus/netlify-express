@@ -171,13 +171,7 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
   //res.removeHeader('x-nf-request-id');
   //res.removeHeader('x-powered-by');
   
-  res.writeHead(200, {
-    'Content-Type': 'text/event-stream',
-    'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Origin': '*'
-  });
+
 
   
 	  try {
@@ -197,6 +191,13 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 							  //var y =data.toString();
 							  var x = data.toString('base64');
 							  console.log(x);
+                              res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Origin': '*'
+  });
                             res.write(`data: ${JSON.stringify(x)}\n\n`);
                           }catch (e) {
 
@@ -214,7 +215,7 @@ client.on("end", function (err) {
 
                 client.on("close", function (err) {
                     console.log("close");
-                    res.end();
+                    //res.end();
                     console.log(err);
                 });
 
