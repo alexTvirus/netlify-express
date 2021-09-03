@@ -181,7 +181,7 @@ res.writeHead(200, {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Origin': 'http:///localhost'
+    'Access-Control-Allow-Origin': 'http://localhost'
   });
 
   
