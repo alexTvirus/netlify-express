@@ -182,7 +182,7 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
   
 	  try {
   var client = new net.Socket();
-  // client.setTimeout(10000);
+
   client.connect(80, "muhanoi.net", function () {
                     // the socks response must be made after the remote connection has been
                     // established
@@ -204,20 +204,17 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
 
                         });      
 
-     // client.on('timeout', () => {
-    //  res.end();
-     // client.end();
-   // });
+
       
 client.on("end", function (err) {
                     console.log("end");
-					//global[sessionid]['error']=true;
+				
                     console.log(err);
                 });
 
                 client.on("close", function (err) {
                     console.log("close");
-                   // res.end();
+                    res.end();
                     console.log(err);
                 });
 
@@ -229,13 +226,12 @@ client.on("end", function (err) {
                 });						
                             
                           }catch (e) {
-                            res.write("data: " + e + "\n\n");
+                            //res.write("data: " + e + "\n\n");
                            // res.end();
                           }
   
   
-  
-  //countdown(res, 2);
+ 
 })
 
 function countdown(res, count) {
