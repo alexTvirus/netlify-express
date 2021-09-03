@@ -220,7 +220,7 @@ client.on("end", function (err) {
 
                 client.on("close", function (err) {
                     console.log("close");
-                    res.end();
+                    //res.end();
                     console.log(err);
                 });
 
@@ -236,7 +236,7 @@ client.on("end", function (err) {
                            // res.end();
                           }
   
-  
+  res.end("ok");
  
 })
 
