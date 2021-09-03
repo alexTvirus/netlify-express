@@ -165,6 +165,11 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
   res.end();
 });
 
+app.get('/.netlify/functions/server/treo', (req, res) => {
+   res.write(`data: abc \n\n`);
+  //res.end();
+});
+
 app.get('/.netlify/functions/server/countdown', (req, res) => {
    // res.removeHeader('server');
    // res.removeHeader('vary');
