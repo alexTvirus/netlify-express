@@ -166,7 +166,7 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/treo', (req, res) => {
-   res.write(`data: abc \n\n`);
+   //res.write(`data: abc \n\n`);
   //res.end();
 });
 
