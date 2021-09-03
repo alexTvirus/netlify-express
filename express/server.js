@@ -174,7 +174,8 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive'
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Origin': '*'
   });
 
   
@@ -184,7 +185,7 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
-					client.write('GET /tin-tuc.html HTTP/1.1\r\n' +
+					client.write('GET /tin-tuc.html HTTP/1.0\r\n' +
              'Host: muhanoi.net\r\n' +
               '\r\n');
    });
