@@ -181,7 +181,7 @@ res.writeHead(200, {
     'Cache-Control': 'no-cache',
     'Connection': 'keep-alive',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Origin': '*'
+    'Access-Control-Allow-Origin': 'http:///localhost'
   });
 
   
@@ -192,7 +192,7 @@ res.writeHead(200, {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
-					client.write('GET /tin-tuc.html HTTP/1.1\r\n' +
+					client.write('GET /tin-tuc.html HTTP/1.0\r\n' +
              'Host: muhanoi.net\r\n' +
               '\r\n');
    });
