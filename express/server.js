@@ -174,8 +174,8 @@ app.get('/.netlify/functions/server/countdown', (req, res) => {
   res.writeHead(200, {
     'Content-Type': 'text/event-stream',
     'Cache-Control': 'no-cache',
-    'Connection': 'keep-alive',
-    'Access-Control-Allow-Origin': '*'
+    'Connection': 'keep-alive'
+   // 'Access-Control-Allow-Origin': '*'
   });
 
   
