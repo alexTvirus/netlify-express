@@ -178,6 +178,14 @@ app.get('/.netlify/functions/server/test2', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/test3', (req, res) => {
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Origin': 'http://localhost'
+  });
+  
     res.write("abc");
 });
 
