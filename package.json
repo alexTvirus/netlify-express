@@ -29,6 +29,7 @@
     "net": "^1.0.2",
     "nodemon": "^1.19.2",
     "serverless-http": "^2.3.0",
-    "http": "0.0.1-security"
+    "http": "0.0.1-security",
+    "promise-socket": "^7.0.0"
   }
 }
