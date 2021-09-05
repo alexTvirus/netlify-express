@@ -212,8 +212,6 @@ res.writeHead(200, {
                               if(data.toString().includes("</html>")){
                                 global2 = data.slice(data.length-20,data.length).toString();
                                 res.write(`data: ${JSON.stringify(x)}\n\n`);
-                              }else{
-                                res.write(`data: 0\n\n`);
                               }
                             
                           }catch (e) {
@@ -232,7 +230,7 @@ client.on("end", function (err) {
 
                 client.on("close", function (err) {
                     console.log("close");
-                    res.end('end');
+                    res.end();
                     console.log(err);
                 });
 
