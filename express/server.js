@@ -199,8 +199,8 @@ res.writeHead(200, {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
-					client.write('GET /subscribe/eps / HTTP/1.0\r\n' +
-             'Host: alice35.pythonanywhere.com\r\n' +
+					client.write('GET /subscribe/eps / HTTP/1.1\r\n' +
+             'Host: emojitrack-gostreamer.herokuapp.com\r\n' +
               '\r\n');
    });
   client.on('data', function (data) {
