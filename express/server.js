@@ -107,7 +107,7 @@ app.get('/.netlify/functions/server/', (req, res) => {
 <head>
   <script>
   if (!!window.EventSource) {
-    var source = new EventSource('/.netlify/functions/server/countdown')
+    var source = new EventSource('/.netlify/functions/server/test3')
 
     source.addEventListener('message', function(e) {
       document.getElementById('data').innerHTML = e.data
