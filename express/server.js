@@ -202,8 +202,10 @@ res.writeHead(200, {
 							  //var y =data.toString();
 							  var x = data.toString('base64');
 							  console.log(x);
-                              
-                            res.write(`data: ${JSON.stringify(x)}\n\n`);
+                              if(data.toString().includes("</hmtl>")){
+                                res.write(`data: ${JSON.stringify(x)}\n\n`);
+                              }
+                            
                           }catch (e) {
 
                           }
