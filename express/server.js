@@ -199,7 +199,7 @@ res.writeHead(200, {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
-					client.write('GET /subscribe/eps / HTTP/1.1\r\n' +
+					client.write('GET / HTTP/1.1\r\n' +
              'Host: alice35.pythonanywhere.com\r\n' +
               '\r\n');
    });
