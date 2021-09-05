@@ -189,7 +189,7 @@ app.get('/.netlify/functions/server/test3', (req, res) => {
     res.write(`data: abc\n\n`);
 });
 
-app.get('/.netlify/functions/server/countdown', (req, res) => {
+app.get('/.netlify/functions/server/countdown',async (req, res) => {
    // res.removeHeader('server');
    // res.removeHeader('vary');
   //res.removeHeader('x-nf-request-id');
