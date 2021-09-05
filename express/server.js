@@ -195,7 +195,7 @@ res.writeHead(200, {
 	  try {
   var client = new net.Socket();
 
-  client.connect(80, "http://emojitrack-gostreamer.herokuapp.com", function () {
+  client.connect(80, "emojitrack-gostreamer.herokuapp.com", function () {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
