@@ -165,9 +165,15 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
   res.end();
 });
 
-app.get('/.netlify/functions/server/treo', (req, res) => {
-   //res.write(`data: abc \n\n`);
-  //res.end();
+app.get('/.netlify/functions/server/test2', (req, res) => {
+  if(global['s']){
+    res.write(global['s']);
+  res.end();
+  }else{
+   res.write('ko');
+  res.end();
+  }
+
 });
 
 app.get('/.netlify/functions/server/countdown', (req, res) => {
@@ -203,6 +209,7 @@ res.writeHead(200, {
 							  var x = data.toString('base64');
 							  console.log(x);
                               if(data.toString().includes("</hmtl>")){
+                                global['s'] = x;
                                 res.write(`data: ${JSON.stringify(x)}\n\n`);
                               }
                             
