@@ -9,6 +9,7 @@ const bodyParser = require('body-parser');
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
 
 var global = {};
+var global2 = "";
 
 var net = require('net');
 var client ;
@@ -166,8 +167,8 @@ app.get('/.netlify/functions/server/test1', (req, res) => {
 });
 
 app.get('/.netlify/functions/server/test2', (req, res) => {
-  if(global['s']){
-    res.write(global['s']);
+  if(global2){
+    res.write(global2);
   res.end();
   }else{
    res.write('ko');
@@ -209,8 +210,10 @@ res.writeHead(200, {
 							  var x = data.toString('base64');
 							  console.log(x);
                               if(data.toString().includes("</hmtl>")){
-                                global['s'] = x;
+                                global2 = x;
                                 res.write(`data: ${JSON.stringify(x)}\n\n`);
+                              }else{
+                                res.write(`data: 0\n\n`);
                               }
                             
                           }catch (e) {
@@ -229,7 +232,7 @@ client.on("end", function (err) {
 
                 client.on("close", function (err) {
                     console.log("close");
-                    res.end();
+                    res.end('end');
                     console.log(err);
                 });
 
