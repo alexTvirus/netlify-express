@@ -177,6 +177,10 @@ app.get('/.netlify/functions/server/test2', (req, res) => {
 
 });
 
+app.get('/.netlify/functions/server/test3', (req, res) => {
+    res.write("abc");
+});
+
 app.get('/.netlify/functions/server/countdown', (req, res) => {
    // res.removeHeader('server');
    // res.removeHeader('vary');
