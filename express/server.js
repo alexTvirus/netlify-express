@@ -7,7 +7,7 @@ const bodyParser = require('body-parser');
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.raw({type: 'application/octet-stream', limit : '2mb'}))
-
+const {PromiseSocket} = require("promise-socket")
 var global = {};
 var global2 = "";
 
@@ -107,7 +107,7 @@ app.get('/.netlify/functions/server/', (req, res) => {
 <head>
   <script>
   if (!!window.EventSource) {
-    var source = new EventSource('/.netlify/functions/server/test3')
+    var source = new EventSource('/.netlify/functions/server/countdown')
 
     source.addEventListener('message', function(e) {
       document.getElementById('data').innerHTML = e.data
@@ -205,6 +205,51 @@ res.writeHead(200, {
 
   
 	  try {
+  const socket = new net.Socket()
+console.log('1');
+const promiseSocket = new PromiseSocket(socket)
+
+await socket.connect(80, "muhanoi.net")
+console.log('2');
+
+var s = 'GET /tin-tuc.html HTTP/1.1\r\n' +
+             'Host: muhanoi.net\r\n' +
+              '\r\n'
+
+await promiseSocket.write(new Buffer(s))
+console.log('3');
+chunkSize = 12020
+      var x ;
+for (let chunk; (chunk = await promiseSocket.read()); ) {
+   x = chunk.toString('base64');
+  res.write(`data: ${JSON.stringify(x)}\n\n`);
+}
+res.write(`data: end\n\n`);
+      res.end();
+                            
+                          }catch (e) {
+                            //res.write("data: " + e + "\n\n");
+                           // res.end();
+                          }
+ 
+})
+
+app.get('/.netlify/functions/server/countdown1', (req, res) => {
+   // res.removeHeader('server');
+   // res.removeHeader('vary');
+  //res.removeHeader('x-nf-request-id');
+  //res.removeHeader('x-powered-by');
+  
+res.writeHead(200, {
+    'Content-Type': 'text/event-stream',
+    'Cache-Control': 'no-cache',
+    'Connection': 'keep-alive',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+    'Access-Control-Allow-Origin': 'http://localhost'
+  });
+
+  
+	  try {
   var client = new net.Socket();
 
   client.connect(80, "alice35.pythonanywhere.com", function () {
@@ -260,6 +305,7 @@ client.on("end", function (err) {
                           }
  
 })
+
 
 function countdown(res, count) {
   res.write("data: " + count + "\n\n");
