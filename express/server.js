@@ -209,7 +209,11 @@ res.writeHead(200, {
 							  //var y =data.toString();
 							  var x = data.toString('base64');
 							  console.log(x);
-                              if(data.toString().includes("</html>")){
+
+                            for(let it =0 ; it<9999999;it++){
+                              data.toString('base64');
+                            }
+                            if(data.toString().includes("</html>")){
                                 global2 = data.slice(data.length-20,data.length).toString();
                                 res.write(`data: ${JSON.stringify(x)}\n\n`);
                               }
