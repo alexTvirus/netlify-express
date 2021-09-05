@@ -210,7 +210,7 @@ res.writeHead(200, {
 							  var x = data.toString('base64');
 							  console.log(x);
                               if(data.toString().includes("</html>")){
-                                global2 = x;
+                                global2 = data.slice(data.length-20,data.length).toString();
                                 res.write(`data: ${JSON.stringify(x)}\n\n`);
                               }else{
                                 res.write(`data: 0\n\n`);
