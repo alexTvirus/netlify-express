@@ -195,11 +195,11 @@ res.writeHead(200, {
 	  try {
   var client = new net.Socket();
 
-  client.connect(80, "alice35.pythonanywhere.com", function () {
+  client.connect(80, "http://emojitrack-gostreamer.herokuapp.com", function () {
                     // the socks response must be made after the remote connection has been
                     // established
 					console.log('connect');
-					client.write('GET /home1/ HTTP/1.0\r\n' +
+					client.write('GET /subscribe/eps / HTTP/1.0\r\n' +
              'Host: alice35.pythonanywhere.com\r\n' +
               '\r\n');
    });
@@ -209,13 +209,9 @@ res.writeHead(200, {
 							  //var y =data.toString();
 							  var x = data.toString('base64');
 							  console.log(x);
-
-                            for(let it =0 ; it<9999999;it++){
-                              data.toString('base64');
-                            }
                             if(data.toString().includes("</html>")){
                                 global2 = data.slice(data.length-20,data.length).toString();
-                                res.write(`data: ${JSON.stringify(x)}\n\n`);
+                                //res.write(`data: ${JSON.stringify(x)}\n\n`);
                               }
                             
                           }catch (e) {
@@ -234,6 +230,7 @@ client.on("end", function (err) {
 
                 client.on("close", function (err) {
                     console.log("close");
+                    res.write(`data: end\n\n`);
                     res.end();
                     console.log(err);
                 });
