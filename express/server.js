@@ -220,13 +220,17 @@ await promiseSocket.write(new Buffer(s))
 console.log('3');
 chunkSize = 12020
       var x ="";
+    let  chunk = await promiseSocket.read()); 
+     if(chunk) {
+      global2 = "abc";
+     }
 for (let chunk; (chunk = await promiseSocket.read()); ) {
    x = chunk.toString('base64');
   global2 = chunk.slice(chunk.length-20,chunk.length).toString();
   res.write(`data: ${JSON.stringify(x)}\n\n`);
 }
-//res.write(`data: end\n\n`);
- //     res.end();
+res.write(`data: end\n\n`);
+      res.end();
                             
                           }catch (e) {
                             //res.write("data: " + e + "\n\n");
