@@ -220,7 +220,7 @@ await promiseSocket.write(new Buffer(s))
 console.log('3');
 chunkSize = 12020
       var x ="";
-    let  chunk = await promiseSocket.read()); 
+    let  chunk = await promiseSocket.read(); 
      if(chunk) {
       global2 = "abc";
      }
