@@ -339,7 +339,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
     //res.removeHeader('x-powered-by');
 
     res.writeHead(200, {
-        'Content-Type': 'text/html',
+        'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -370,7 +370,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
         const reqs = https.request(options, ress => {
             ress.on('data', d => {
-                res.write(d.toString());
+                res.write(`data: ${JSON.stringify(d.toString())}\n\n`);
             })
         })
 
