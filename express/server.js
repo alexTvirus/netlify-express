@@ -15,7 +15,7 @@ const {
 } = require("promise-socket")
 var global = {};
 var global2 = "";
-
+var https = require('https');
 var net = require('net');
 var client;
 var params = function(req) {
@@ -368,19 +368,19 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
             }
         }
 
-        const req = https.request(options, res => {
-            console.log(`statusCode: ${res.statusCode}`)
+        const reqs = https.request(options, ress => {
+            console.log(`statusCode: ${ress.statusCode}`)
 
-            res.on('data', d => {
+            ress.on('data', d => {
                 res.write(d.toString());
             })
         })
 
-        req.on('error', error => {
+        reqs.on('error', error => {
             console.error(error)
         })
 
-        req.end()
+        reqs.end()
 
     } catch (e) {
         //res.write("data: " + e + "\n\n");
