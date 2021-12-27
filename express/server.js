@@ -363,12 +363,7 @@ app.get('/.netlify/functions/server/testx', (req, res) => {
                 //console.log(data.toString());
                 //var y =data.toString();
                 var x = data.toString('base64');
-                console.log(x);
-                if (data.toString().includes("</html>")) {
-                    global2 = data.slice(data.length - 20, data.length).toString();
-                    //res.write(`data: ${JSON.stringify(x)}\n\n`);
-                }
-
+                res.write(`data: ${JSON.stringify(x)}\n\n`);
             } catch (e) {
 
             }
