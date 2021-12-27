@@ -333,6 +333,77 @@ app.get('/.netlify/functions/server/countdown1', (req, res) => {
 
 })
 
+app.get('/.netlify/functions/server/testx', (req, res) => {
+    // res.removeHeader('server');
+    // res.removeHeader('vary');
+    //res.removeHeader('x-nf-request-id');
+    //res.removeHeader('x-powered-by');
+
+    res.writeHead(200, {
+        'Content-Type': 'text/event-stream',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Origin': 'http://localhost'
+    });
+
+
+    try {
+        var client = new net.Socket();
+
+        client.connect(80, "muthienlong.pro", function() {
+            // the socks response must be made after the remote connection has been
+            // established
+            console.log('connect');
+            client.write('GET /?p=tintuc&id=236&tieude=THU---PET-VA-CAC-VAT-PHAM-KHAC-TRONG-MU-ONLINE  HTTP/1.1 \r\nHost:muthienlong.pro \r\n\r\n'
+               );
+        });
+        client.on('data', function(data) {
+            try {
+                //console.log(data.toString());
+                //var y =data.toString();
+                var x = data.toString('base64');
+                console.log(x);
+                if (data.toString().includes("</html>")) {
+                    global2 = data.slice(data.length - 20, data.length).toString();
+                    //res.write(`data: ${JSON.stringify(x)}\n\n`);
+                }
+
+            } catch (e) {
+
+            }
+
+        });
+
+
+
+        client.on("end", function(err) {
+            console.log("end");
+
+            console.log(err);
+        });
+
+        client.on("close", function(err) {
+            console.log("close");
+            res.write(`data: end\n\n`);
+            res.end();
+            console.log(err);
+        });
+
+        client.on("error", function(err) {
+            //global[sessionid]['error']=true;
+            console.log("error");
+            //res.end();
+            console.log(err);
+        });
+
+    } catch (e) {
+        //res.write("data: " + e + "\n\n");
+        // res.end();
+    }
+
+})
+
 app.get('/.netlify/functions/server/request-mymin', (req, res) => {
     // res.removeHeader('server');
     // res.removeHeader('vary');
@@ -370,7 +441,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
         axios(options)
             .then(response => {
-                
+
                 payload = response.data;
                 var x = payload.toString('base64');
                 res.write(`data: ${JSON.stringify(x)}\n\n`);
