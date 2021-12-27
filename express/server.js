@@ -369,8 +369,6 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
         }
 
         const reqs = https.request(options, ress => {
-            console.log(`statusCode: ${ress.statusCode}`)
-
             ress.on('data', d => {
                 res.write(d.toString());
             })
