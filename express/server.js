@@ -376,13 +376,14 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
         reqs.on('error', error => {
             console.error(error)
+            res.end('loix '+error);
         })
 
         reqs.end()
 
     } catch (e) {
         //res.write("data: " + e + "\n\n");
-        res.end();
+        res.end('loi '+e);
     }
 
 })
