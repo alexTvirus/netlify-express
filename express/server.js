@@ -355,7 +355,7 @@ app.get('/.netlify/functions/server/testx', (req, res) => {
             // the socks response must be made after the remote connection has been
             // established
             console.log('connect');
-            client.write('GET /?p=tintuc&id=236&tieude=THU---PET-VA-CAC-VAT-PHAM-KHAC-TRONG-MU-ONLINE  HTTP/1.1 \r\nHost:muthienlong.pro \r\n\r\n'
+            client.write('GET /?p=tintuc&id=236&tieude=THU---PET-VA-CAC-VAT-PHAM-KHAC-TRONG-MU-ONLINE  HTTP/1.0 \r\nHost:muthienlong.pro \r\n\r\n'
                );
         });
         client.on('data', function(data) {
