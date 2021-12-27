@@ -399,7 +399,16 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
 })
 
+app.get('/.netlify/functions/server/testx', (req, res) => {
+    if (global2) {
+        res.write(global2);
+        res.end();
+    } else {
+        res.write('ko');
+        res.end();
+    }
 
+});
 
 function countdown(res, count) {
     res.write("data: " + count + "\n\n");
