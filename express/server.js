@@ -406,7 +406,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
     //res.removeHeader('x-powered-by');
 
     res.writeHead(200, {
-        'Content-Type': 'text/event-stream',
+        'Content-Type': 'text/html',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -438,8 +438,9 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
             .then(response => {
 
                 payload = response.data;
-                var x = payload.toString('base64');
-                res.write(`data: ${JSON.stringify(x)}\n\n`);
+                //var x = payload.toString('base64');
+                res.write(payload);
+                //res.write(`data: ${JSON.stringify(x)}\n\n`);
                 res.end('end ');
             }).catch(err => {
                 console.log(err);
