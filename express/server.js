@@ -440,6 +440,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
                 payload = response.data;
                 var x = payload.toString('base64');
                 res.write(`data: ${JSON.stringify(x)}\n\n`);
+                res.end('end ');
             }).catch(err => {
                 console.log(err);
                 return false
