@@ -348,49 +348,39 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
 
     try {
-        var client = new net.Socket();
-
-        client.connect(443, "mymin.net", function() {
-            // the socks response must be made after the remote connection has been
-            // established
-            console.log('connect');
-            client.write('GET /mcoin HTTP/1.0\r\n Host: mymin.net\r\n Connection: keep-alive\r\n Cache-Control: max-age=0\r\n Upgrade-Insecure-Requests: 1\r\n User-Agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36\r\n Accept: text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9\r\n Sec-Fetch-Site: same-origin\r\n Sec-Fetch-Mode: navigate\r\n Sec-Fetch-User: ?1\r\n Sec-Fetch-Dest: document\r\n Referer: https://mymin.net/lethienlong-16064/price\r\n Accept-Encoding: gzip, deflate, br\r\n Accept-Language: vi,en-GB;q=0.9,en;q=0.8\r\n Cookie: PHPSESSID=f0clhvuje08ed51cjvvqv0b4f5; _ga=GA1.2.1662541345.1640626287; _gid=GA1.2.1135241609.1640626287; user_id=28357; user_key=Y9%2BGNPzcOJGS1qkwTuSoSW%2Bvcd%2F94YOtM%2BSQhx6Qn%2F8%3D; uss_auth_login=pBkJ0YVssBV%2BRW3jSQgrojKLdWClrie7uYOrfMnoD%2FW9Hg17CK7aRWhmQE8uHhEJ4PrPfxfEZ5mqbADAoLKiCxOo8bMyH0hsHThJBLVCMiaVZlYnhvvk08HMSN24zRNEaeWCbZ4zdaOigrh9d6fIrHe%2Fx41zvYXuTI2hSM46w7jxKWWvtZdb9mxWuQwT%2BOzHqTm1yXDBae3QW5T42B4Zwg%3D%3D; _gat=1 mymin-ex: 4.2.0\r\n\r\n');
-        });
-        client.on('data', function(data) {
-            try {
-                //console.log(data.toString());
-                //var y =data.toString();
-                //var x = data.toString('base64');
-                //console.log(x);
-                res.write(data.toString());
-
-            } catch (e) {
-
+        const options = {
+            hostname: 'mymin.net',
+            port: 443,
+            path: '/mcoin',
+            method: 'GET',
+            headers: {
+                'Host': 'mymin.net',
+                'Connection': 'keep-alive',
+                'Upgrade-Insecure-Requests': 1,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-User': '?1',
+                'Sec-Fetch-Dest': 'document',
+                'Accept-Language': 'vi,en-GB;q=0.9,en;q=0.8',
+                'Cookie': 'PHPSESSID=f0clhvuje08ed51cjvvqv0b4f5; _ga=GA1.2.1662541345.1640626287; _gid=GA1.2.1135241609.1640626287; user_id=28357; user_key=Y9%2BGNPzcOJGS1qkwTuSoSW%2Bvcd%2F94YOtM%2BSQhx6Qn%2F8%3D; uss_auth_login=pBkJ0YVssBV%2BRW3jSQgrojKLdWClrie7uYOrfMnoD%2FW9Hg17CK7aRWhmQE8uHhEJ4PrPfxfEZ5mqbADAoLKiCxOo8bMyH0hsHThJBLVCMiaVZlYnhvvk08HMSN24zRNEaeWCbZ4zdaOigrh9d6fIrHe%2Fx41zvYXuTI2hSM46w7jxKWWvtZdb9mxWuQwT%2BOzHqTm1yXDBae3QW5T42B4Zwg%3D%3D; _gat=1mymin-ex: 4.2.0'
             }
+        }
 
-        });
+        const req = https.request(options, res => {
+            console.log(`statusCode: ${res.statusCode}`)
 
+            res.on('data', d => {
+                res.write(d.toString());
+            })
+        })
 
+        req.on('error', error => {
+            console.error(error)
+        })
 
-        client.on("end", function(err) {
-            console.log("end");
-
-            console.log(err);
-        });
-
-        client.on("close", function(err) {
-            console.log("close");
-            res.write(`data: end\n\n`);
-            res.end();
-            console.log(err);
-        });
-
-        client.on("error", function(err) {
-            //global[sessionid]['error']=true;
-            console.log("error");
-            res.end();
-            console.log(err);
-        });
+        req.end()
 
     } catch (e) {
         //res.write("data: " + e + "\n\n");
