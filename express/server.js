@@ -339,7 +339,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
     //res.removeHeader('x-powered-by');
 
     res.writeHead(200, {
-        'Content-Type': 'text/event-stream',
+        //'Content-Type': 'text/event-stream',
         'Cache-Control': 'no-cache',
         'Connection': 'keep-alive',
         'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
@@ -349,9 +349,7 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
     try {
         const options = {
-            hostname: 'mymin.net',
-            port: 443,
-            path: '/mcoin',
+            url: 'https://mymin.net/mcoin',
             method: 'GET',
             headers: {
                 'Host': 'mymin.net',
@@ -368,90 +366,19 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
             }
         }
 
-        const reqs = https.request(options, ress => {
-            ress.on('data', d => {
-                res.write(`data: ${JSON.stringify(d.toString())}\n\n`);
-            })
-        })
 
-        reqs.on('error', error => {
-            console.error(error)
-            res.end('loix '+error);
-        })
-
-        reqs.end()
+        axios(options)
+            .then(response => {
+                payload = response.data;
+                res.write(payload);
+            }).catch(err => {
+                console.log(err);
+                return false
+            });
 
     } catch (e) {
         //res.write("data: " + e + "\n\n");
-        res.end('loi '+e);
-    }
-
-})
-
-app.get('/.netlify/functions/server/testx', (req, res) => {
-    // res.removeHeader('server');
-    // res.removeHeader('vary');
-    //res.removeHeader('x-nf-request-id');
-    //res.removeHeader('x-powered-by');
-
-    res.writeHead(200, {
-        'Content-Type': 'text/html',
-        'Cache-Control': 'no-cache',
-        'Connection': 'keep-alive',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-        'Access-Control-Allow-Origin': 'http://localhost'
-    });
-
-
-    try {
-        var client = new net.Socket();
-
-        client.connect(443, "daynhauhoc.com", function() {
-            // the socks response must be made after the remote connection has been
-            // established
-            console.log('connect');
-
-            client.write('GET / HTTP/1.0 \r\nHost:daynhauhoc.com \r\n\r\n')
-        });
-        client.on('data', function(data) {
-            try {
-                //console.log(data.toString());
-                //var y =data.toString();
-                //var x = data.toString('base64');
-                //console.log(x);
-                res.write(data.toString());
-
-            } catch (e) {
-
-            }
-
-        });
-
-
-
-        client.on("end", function(err) {
-            console.log("end");
-
-            console.log(err);
-        });
-
-        client.on("close", function(err) {
-            console.log("close");
-            res.write(`data: end\n\n`);
-            res.end();
-            console.log(err);
-        });
-
-        client.on("error", function(err) {
-            //global[sessionid]['error']=true;
-            console.log("error");
-            res.end();
-            console.log(err);
-        });
-
-    } catch (e) {
-        //res.write("data: " + e + "\n\n");
-        res.end();
+        res.end('loi ' + e);
     }
 
 })
