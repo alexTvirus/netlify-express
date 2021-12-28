@@ -454,6 +454,115 @@ app.get('/.netlify/functions/server/request-mymin', (req, res) => {
 
 })
 
+app.get('/.netlify/functions/server/request-mymin/changeinfo/email', (req, res) => {
+    // res.removeHeader('server');
+    // res.removeHeader('vary');
+    //res.removeHeader('x-nf-request-id');
+    //res.removeHeader('x-powered-by');
+
+    res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Origin': '*'
+    });
+
+
+    try {
+        const options = {
+            url: 'https://mymin.net/changeinfo/email',
+            method: 'GET',
+            headers: {
+                'Host': 'mymin.net',
+                'Connection': 'close',
+                'Upgrade-Insecure-Requests': 1,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-User': '?1',
+                'Sec-Fetch-Dest': 'document',
+                'Accept-Language': 'vi,en-GB;q=0.9,en;q=0.8',
+                'Cookie': 'PHPSESSID=f0clhvuje08ed51cjvvqv0b4f5;user_id=28357; user_key=Y9%2BGNPzcOJGS1qkwTuSoSW%2Bvcd%2F94YOtM%2BSQhx6Qn%2F8%3D; uss_auth_login=pBkJ0YVssBV%2BRW3jSQgrojKLdWClrie7uYOrfMnoD%2FW9Hg17CK7aRWhmQE8uHhEJ4PrPfxfEZ5mqbADAoLKiCxOo8bMyH0hsHThJBLVCMiaVZlYnhvvk08HMSN24zRNEaeWCbZ4zdaOigrh9d6fIrHe%2Fx41zvYXuTI2hSM46w7jxKWWvtZdb9mxWuQwT%2BOzHqTm1yXDBae3QW5T42B4Zwg%3D%3D; _gat=1mymin-ex: 4.2.0'
+            }
+        }
+
+
+        axios(options)
+            .then(response => {
+
+                payload = response.data;
+                //var x = payload.toString('base64');
+                res.write(payload);
+                //res.write(`data: ${JSON.stringify(x)}\n\n`);
+                res.end('end ');
+            }).catch(err => {
+                console.log(err);
+                return false
+            });
+
+    } catch (e) {
+        //res.write("data: " + e + "\n\n");
+        res.end('loi ' + e);
+    }
+
+})
+
+app.get('/.netlify/functions/server/request-mymin/lethienlong-16064', (req, res) => {
+    // res.removeHeader('server');
+    // res.removeHeader('vary');
+    //res.removeHeader('x-nf-request-id');
+    //res.removeHeader('x-powered-by');
+
+    res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Origin': '*'
+    });
+
+
+    try {
+        const options = {
+            url: 'https://mymin.net/lethienlong-16064',
+            method: 'GET',
+            headers: {
+                'Host': 'mymin.net',
+                'Connection': 'close',
+                'Upgrade-Insecure-Requests': 1,
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36',
+                'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/avif,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3;q=0.9',
+                'Sec-Fetch-Site': 'none',
+                'Sec-Fetch-Mode': 'navigate',
+                'Sec-Fetch-User': '?1',
+                'Sec-Fetch-Dest': 'document',
+                'Accept-Language': 'vi,en-GB;q=0.9,en;q=0.8',
+                'Cookie': 'PHPSESSID=f0clhvuje08ed51cjvvqv0b4f5;user_id=28357; user_key=Y9%2BGNPzcOJGS1qkwTuSoSW%2Bvcd%2F94YOtM%2BSQhx6Qn%2F8%3D; uss_auth_login=pBkJ0YVssBV%2BRW3jSQgrojKLdWClrie7uYOrfMnoD%2FW9Hg17CK7aRWhmQE8uHhEJ4PrPfxfEZ5mqbADAoLKiCxOo8bMyH0hsHThJBLVCMiaVZlYnhvvk08HMSN24zRNEaeWCbZ4zdaOigrh9d6fIrHe%2Fx41zvYXuTI2hSM46w7jxKWWvtZdb9mxWuQwT%2BOzHqTm1yXDBae3QW5T42B4Zwg%3D%3D; _gat=1mymin-ex: 4.2.0'
+            }
+        }
+
+
+        axios(options)
+            .then(response => {
+
+                payload = response.data;
+                //var x = payload.toString('base64');
+                res.write(payload);
+                //res.write(`data: ${JSON.stringify(x)}\n\n`);
+                res.end('end ');
+            }).catch(err => {
+                console.log(err);
+                return false
+            });
+
+    } catch (e) {
+        //res.write("data: " + e + "\n\n");
+        res.end('loi ' + e);
+    }
+
+})
 
 function countdown(res, count) {
     res.write("data: " + count + "\n\n");
