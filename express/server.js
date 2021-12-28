@@ -471,7 +471,7 @@ app.get('/.netlify/functions/server/request-mymin/changeinfo/email', (req, res) 
 
     try {
         const options = {
-            url: 'https://mymin.net/changeinfo/email',
+            url: 'https://mymin.net/lethienlong-16064/changeinfo/email',
             method: 'GET',
             headers: {
                 'Host': 'mymin.net',
