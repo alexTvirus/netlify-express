@@ -5,7 +5,7 @@ const app = express();
 const bodyParser = require('body-parser');
 const axios = require('axios');
 var querystring = require('querystring');
-var merge = require('lodash/merge');
+var merge = require('lodash');
 const path = require('path');
 var maindomain = "hpjav.tv";
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
@@ -71,7 +71,7 @@ function myMiddleware (req, res, next) {
 	
 	var proxyOptions = url.parse(resourceURL);
 	proxyOptions.headers = {};
-	merge( proxyOptions.headers, req.headers, querystring.parse( params.headers ) );
+	merge.merge( proxyOptions.headers, req.headers, querystring.parse( params.headers ) );
 	proxyOptions.method = params.method || req.method;
 	proxyOptions.agent = false;
 
@@ -118,7 +118,7 @@ function proxyResponse(clientResponse, serverResponse) {
     if (serverResponse instanceof Error) {
         return error(clientResponse);
     }
-    merge(headers, serverResponse.headers, access_controls_headers);
+    merge.merge(headers, serverResponse.headers, access_controls_headers);
     clientResponse.writeHeader(serverResponse.statusCode, headers);
     serverResponse.pipe(clientResponse, {end: true});
 }
