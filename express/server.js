@@ -51,7 +51,8 @@ function myMiddleware (req, res, next) {
 		resourceURL = "https://"+maindomain+"/"+resourceURL
 	}
 
-
+  res.end(resourceURL);
+  
 	if( resourceURL && !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
 
 		// Otherwise update the default parameters
