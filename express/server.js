@@ -8,6 +8,7 @@ const axios = require('axios');
 var querystring = require('querystring');
 var merge = require('lodash.merge');
 const path = require('path');
+var maindomain = "hpjav.tv";
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
