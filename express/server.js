@@ -5,6 +5,10 @@ const serverless = require('serverless-http');
 const app = express();
 const bodyParser = require('body-parser');
 const axios = require('axios');
+var querystring = require('querystring');
+var merge = require('lodash.merge');
+const path = require('path');
+var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
 app.use(bodyParser.raw({
@@ -34,6 +38,98 @@ var params = function(req) {
     return result;
 }
 
+function myMiddleware (req, res, next) {
+   // Maintain a collection of URL overriding parameters
+	var params = {};
+
+	// Is the entire path the request?
+	// i.e. http://proxy-server/http://thirdparty.com/request/to/be/proxied
+	var resourceURL = req.url.replace(/^\/+/,'');
+
+// Options
+	if(!resourceURL.includes("http")){
+		resourceURL = "https://"+maindomain+"/"+resourceURL
+	}
+
+
+	if( resourceURL && !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
+
+		// Otherwise update the default parameters
+		params = querystring.parse(resourceURL.replace(/.*\?/,''));
+		//console.log("params "+querystring.parse(resourceURL.replace(/.*\?/,'')))
+		// Redefine the URL
+		//resourceURL = params.url;
+		delete params.url;
+	}
+
+
+	if( !resourceURL || !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
+		error(res);
+		return;
+	}
+
+	
+	var proxyOptions = url.parse(resourceURL);
+	proxyOptions.headers = {};
+	merge( proxyOptions.headers, req.headers, querystring.parse( params.headers ) );
+	proxyOptions.method = params.method || req.method;
+	proxyOptions.agent = false;
+
+	// remove unwanted headers in the request
+	delete proxyOptions.headers.host;
+
+	// Augment the request
+	// Lets go and see if the value in here matches something which is stored locally
+	intervene( proxyOptions, proxyRequest( req ).bind( null, proxyOptions, res ) );
+
+   // keep executing the router middleware
+   //next()
+}
+
+app.use(myMiddleware)
+
+intervene = function (options, callback) {
+    callback();
+};
+
+var request = function (opts, callback) {
+    var pro = (opts.protocol === 'https:' ? https : http);
+    var req = pro.request(opts, callback);
+    req.on('error', callback);
+    return req;
+};
+
+function proxyRequest(req) {
+
+    // Buffer the request
+    // TODO
+
+    // Return a function once the authorization has been granted
+    return function (options, res) {
+
+        var connector = request(options, proxyResponse.bind(null, res));
+        req.pipe(connector, {end: true});
+    }
+}
+
+
+function proxyResponse(clientResponse, serverResponse) {
+    var headers = {};
+    if (serverResponse instanceof Error) {
+        return error(clientResponse);
+    }
+    merge(headers, serverResponse.headers, access_controls_headers);
+    clientResponse.writeHeader(serverResponse.statusCode, headers);
+    serverResponse.pipe(clientResponse, {end: true});
+}
+
+function error(res) {
+    res.writeHead(400, access_controls_headers);
+    res.end();
+}
+
+
+//--------------------------
 app.post('/.netlify/functions/server/post', function(req, res) {
     var body = req.body;
     body = body.slice(2, body.length);
