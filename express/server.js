@@ -45,6 +45,7 @@ function myMiddleware (req, res, next) {
 	// Is the entire path the request?
 	// i.e. http://proxy-server/http://thirdparty.com/request/to/be/proxied
 	var resourceURL = req.url.replace(/^\/+/,'');
+  resourceURL = resourceURL.replace('/.netlify/functions/server','');
 
 // Options
 	if(!resourceURL.includes("http")){
