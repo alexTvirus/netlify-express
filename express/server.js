@@ -78,12 +78,12 @@ function myMiddleware (req, res, next) {
 			payload = response.data;
 			//var x = payload.toString('base64');
 			res.writeHead(response.status,response.headers);
-			res.write(payload);
+			//res.write(payload);
 			//res.write(`data: ${JSON.stringify(x)}\n\n`);
-			res.end();
+			res.end(payload);
 		}).catch(err => {
 		console.log(err);
-		res.end();
+		res.end(err);
 		//return false
 	});
 }
