@@ -67,7 +67,7 @@ function myMiddleware (req, res, next) {
 	proxyOptions.url = resourceURL
 	// Augment the request
 	// Lets go and see if the value in here matches something which is stored locally
-  res.end(resourceURL);
+  //res.end(resourceURL);
 	const options = {
 		url: proxyOptions.url,
 		method: proxyOptions.method,
