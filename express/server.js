@@ -58,7 +58,7 @@ function myMiddleware (req, res, next) {
 	proxyOptions.agent = false;
 
 	// remove unwanted headers in the request
-	delete proxyOptions.headers.host;
+	proxyOptions.headers['Host']=maindomain;
 
 	delete proxyOptions.headers['accept-encoding'];
   delete proxyOptions.headers['if-none-match'];
@@ -69,7 +69,7 @@ function myMiddleware (req, res, next) {
 	proxyOptions.headers['user-agent']='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36';
 	// Augment the request
 	// Lets go and see if the value in here matches something which is stored locally
-  res.end(resourceURL);
+  //res.end(resourceURL);
 	const options = {
 		url: proxyOptions.url,
 		method: proxyOptions.method,
