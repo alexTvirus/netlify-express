@@ -68,7 +68,7 @@ function myMiddleware (req, res, next) {
 	intervene( proxyOptions, proxyRequest( req ).bind( null, proxyOptions, res ) );
 
    // keep executing the router middleware
-   next()
+   //next()
 }
 
 app.use(myMiddleware)
