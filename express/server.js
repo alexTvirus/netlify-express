@@ -102,7 +102,7 @@ function myMiddleware (req, res, next) {
 			res.end(payload);
 		}).catch(err => {
 		console.log(err);
-		res.end(err);
+		res.end(err.toString());
 		//return false
 	});
 }
