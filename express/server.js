@@ -50,12 +50,8 @@ function myMiddleware (req, res, next) {
 	//var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
   var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
 // Options
-	if(resourceURL!==""){
-		resourceURL = "https://"+maindomain+"/.netlify/functions/server/"+resourceURL
-	}else{
-    resourceURL = "https://"+maindomain+"/"+resourceURL
-  }
-	res.end("resourceURL "+resourceURL);
+	resourceURL = "https://"+maindomain+"/"+resourceURL
+	//res.end("resourceURL "+resourceURL);
 	var proxyOptions = url.parse(resourceURL);
 	proxyOptions.headers = {};
 	merge.merge( proxyOptions.headers, req.headers, querystring.parse( params.headers ) );
