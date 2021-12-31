@@ -69,7 +69,7 @@ function myMiddleware (req, res, next) {
 	proxyOptions.url = resourceURL
 	// Augment the request
 	// Lets go and see if the value in here matches something which is stored locally
-	 proxyOptions.headers['user-agent']='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36';
+	// proxyOptions.headers['user-agent']='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36';
 	// Augment the request
 	// Lets go and see if the value in here matches something which is stored locally
   //res.end(resourceURL);
