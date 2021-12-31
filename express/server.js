@@ -55,7 +55,7 @@ function myMiddleware (req, res, next) {
 	}else{
     resourceURL = "https://"+maindomain+"/"+resourceURL
   }
-	res.end("resourceURL "+resourceURL);
+	//res.end("resourceURL "+resourceURL);
 	var proxyOptions = url.parse(resourceURL);
 	proxyOptions.headers = {};
 	merge.merge( proxyOptions.headers, req.headers, querystring.parse( params.headers ) );
