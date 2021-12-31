@@ -82,6 +82,9 @@ function myMiddleware (req, res, next) {
 		.then(response => {
 			payload = response.data;
 			//var x = payload.toString('base64');
+       if (response.headers['transfer-encoding'] === 'chunked') {
+        delete response.headers['transfer-encoding']
+      }
 			res.writeHead(response.status,response.headers);
 			//res.write(payload);
 			//res.write(`data: ${JSON.stringify(x)}\n\n`);
