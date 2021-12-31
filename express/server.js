@@ -87,6 +87,12 @@ function myMiddleware (req, res, next) {
        if (response.headers['transfer-encoding'] === 'chunked') {
         delete response.headers['transfer-encoding']
       }
+      if (response.headers['content-type']&&response.headers['content-type'].includes('text')) {
+        payload=updateLinksInHTML(payload);
+      }else if(!response.headers['content-type']){
+        payload=updateLinksInHTML(payload);
+      }
+      
 			res.writeHead(response.status,response.headers);
 			//res.write(payload);
 			//res.write(`data: ${JSON.stringify(x)}\n\n`);
@@ -96,6 +102,12 @@ function myMiddleware (req, res, next) {
 		res.end(err);
 		//return false
 	});
+}
+
+function updateLinksInHTML(html) {
+  return html.replace(/href="(.*?)"/g, (match, $1) => { // g flag to replace all links
+    return 'href="/.netlify/functions/server/' + $1 + '"'; // return the string with your format
+  })
 }
 
 app.use(myMiddleware)
