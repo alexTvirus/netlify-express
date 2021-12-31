@@ -109,7 +109,7 @@ function updateLinksInHTML(html) {
 }
 
 function updateSrcInHTML(html) {
-  return html.replace(/src="\/(.*?)""/g, (match, $1) => { // g flag to replace all links
+  return html.replace(/src="\/(.*?)"/g, (match, $1) => { // g flag to replace all links
     return 'src=".netlify/functions/server' + $1 + '"'; // return the string with your format
   })
 }
