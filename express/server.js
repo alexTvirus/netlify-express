@@ -69,12 +69,14 @@ function myMiddleware (req, res, next) {
 	proxyOptions.headers['user-agent']='Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4183.121 Safari/537.36';
 	// Augment the request
 	// Lets go and see if the value in here matches something which is stored locally
-  //res.end(resourceURL);
+ 
 	const options = {
 		url: proxyOptions.url,
 		method: proxyOptions.method,
 		headers: proxyOptions.headers
 	}
+  
+   res.end(JSON.stringify(options));
 		axios(options)
 		.then(response => {
       if(response.data instanceof Error){
