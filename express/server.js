@@ -53,17 +53,6 @@ function myMiddleware (req, res, next) {
 		resourceURL = "https://"+maindomain+"/"+resourceURL
 	}
   
-	if( resourceURL && !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
-
-		// Otherwise update the default parameters
-		params = querystring.parse(resourceURL.replace(/.*\?/,''));
-		//console.log("params "+querystring.parse(resourceURL.replace(/.*\?/,'')))
-		// Redefine the URL
-		//resourceURL = params.url;
-		delete params.url;
-	}
-
-
 	if( !resourceURL || !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
 		error(res);
 		return;
@@ -84,7 +73,7 @@ function myMiddleware (req, res, next) {
 	intervene( proxyOptions, proxyRequest( req ).bind( null, proxyOptions, res ) );
 
    // keep executing the router middleware
-   //next()
+   next()
 }
 
 app.use(myMiddleware)
