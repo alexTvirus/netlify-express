@@ -47,10 +47,10 @@ function myMiddleware (req, res, next) {
   var maindomain = "hpjav.tv";
 	// Is the entire path the request?
 	// i.e. http://proxy-server/http://thirdparty.com/request/to/be/proxied
-	var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
-
+	//var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
+  var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
 // Options
-	if(!resourceURL.includes("http")){
+	if(resourceURL!==""){
 		resourceURL = "https://"+maindomain+"/.netlify/functions/server/"+resourceURL
 	}else{
     resourceURL = "https://"+maindomain+"/"+resourceURL
