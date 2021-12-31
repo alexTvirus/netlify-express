@@ -10,7 +10,7 @@ var https = require('https');
 var querystring = require('querystring');
 var merge = require('lodash');
 const path = require('path');
-var maindomain = "hentaivn.net";
+var maindomain = "hentaivn.moe";
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
