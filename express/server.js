@@ -43,10 +43,10 @@ var params = function(req) {
 function myMiddleware (req, res, next) {
    // Maintain a collection of URL overriding parameters
 	var params = {};
-
+  res.end(req.url);
 	// Is the entire path the request?
 	// i.e. http://proxy-server/http://thirdparty.com/request/to/be/proxied
-	var resourceURL =  req.url.replaceAll(/\/\.netlify\/functions\/server\//ig,'');
+	var resourceURL = req.url.replaceAll(/\/\.netlify\/functions\/server\//ig,'');
 
 // Options
 	if(!resourceURL.includes("http")){
