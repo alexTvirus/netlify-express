@@ -85,8 +85,10 @@ function myMiddleware (req, res, next) {
       }
       if (response.headers['content-type']&&response.headers['content-type'].includes('text')) {
         payload=updateLinksInHTML(payload);
+        payload=updateSrcInHTML(payload);
       }else if(!response.headers['content-type']){
         payload=updateLinksInHTML(payload);
+        payload=updateSrcInHTML(payload);
       }
       
 			res.writeHead(response.status,response.headers);
@@ -103,6 +105,12 @@ function myMiddleware (req, res, next) {
 function updateLinksInHTML(html) {
   return html.replace(/href="(.*?)"/g, (match, $1) => { // g flag to replace all links
     return 'href="/.netlify/functions/server' + $1 + '"'; // return the string with your format
+  })
+}
+
+function updateSrcInHTML(html) {
+  return html.replace(/src="src="\/(.*?)""/g, (match, $1) => { // g flag to replace all links
+    return 'src=".netlify/functions/server' + $1 + '"'; // return the string with your format
   })
 }
 
