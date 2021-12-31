@@ -58,7 +58,7 @@ function myMiddleware (req, res, next) {
 	proxyOptions.agent = false;
 
 	// remove unwanted headers in the request
-	proxyOptions.headers['Host']=maindomain;
+	proxyOptions.headers['host']=maindomain;
 
 	delete proxyOptions.headers['accept-encoding'];
   delete proxyOptions.headers['if-none-match'];
@@ -76,7 +76,7 @@ function myMiddleware (req, res, next) {
 		headers: proxyOptions.headers
 	}
   
-   res.end(JSON.stringify(options));
+   //res.end(JSON.stringify(options));
 		axios(options)
 		.then(response => {
       if(response.data instanceof Error){
