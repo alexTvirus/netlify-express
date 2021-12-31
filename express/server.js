@@ -52,12 +52,6 @@ function myMiddleware (req, res, next) {
 	if(!resourceURL.includes("http")){
 		resourceURL = "https://"+maindomain+"/"+resourceURL
 	}
-  
-	if( !resourceURL || !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
-		error(res);
-		return;
-	}
-
 	
 	var proxyOptions = url.parse(resourceURL);
 	proxyOptions.headers = {};
