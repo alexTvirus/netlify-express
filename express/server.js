@@ -77,6 +77,11 @@ function myMiddleware (req, res, next) {
 	}
 		axios(options)
 		.then(response => {
+      if(response.data instanceof Error){
+        res.end('error');
+        return;
+      }
+      
 			payload = response.data;
 			//var x = payload.toString('base64');
        if (response.headers['transfer-encoding'] === 'chunked') {
@@ -93,6 +98,7 @@ function myMiddleware (req, res, next) {
 			res.writeHead(response.status,response.headers);
 			//res.write(payload);
 			//res.write(`data: ${JSON.stringify(x)}\n\n`);
+      
 			res.end(payload);
 		}).catch(err => {
 		console.log(err);
