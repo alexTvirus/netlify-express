@@ -195,7 +195,7 @@ app.get('/.netlify/functions/server/sse', function(req, res) {
 });
 
 const router = express.Router();
-app.get('/.netlify/functions/server/', (req, res) => {
+app.get('/.netlify/functions/server/index', (req, res) => {
     res.writeHead(200, {
         'Content-Type': 'text/html'
     });
