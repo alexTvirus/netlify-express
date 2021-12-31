@@ -52,8 +52,6 @@ function myMiddleware (req, res, next) {
 	if(!resourceURL.includes("http")){
 		resourceURL = "https://"+maindomain+"/"+resourceURL
 	}
-
-  res.end(resourceURL);
   
 	if( resourceURL && !resourceURL.match(/^[a-z]+:\/\/[a-z\.\-]+/i) ){
 
