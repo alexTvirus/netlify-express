@@ -89,7 +89,7 @@ function myMiddleware (req, res, next) {
         payload=updateLinksInHTML(payload);
         payload=updateSrcInHTML(payload);
       }
-      
+      delete response.headers['content-type']
 			res.writeHead(response.status,response.headers);
 			//res.write(payload);
 			//res.write(`data: ${JSON.stringify(x)}\n\n`);
