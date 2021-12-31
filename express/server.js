@@ -10,7 +10,7 @@ var https = require('https');
 var querystring = require('querystring');
 var merge = require('lodash');
 const path = require('path');
-var maindomain = "allporncomic.com";
+var maindomain = "www.thegioididong.com";
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -79,11 +79,7 @@ function myMiddleware (req, res, next) {
    //res.end(JSON.stringify(options));
 		axios(options)
 		.then(response => {
-      if(response.data instanceof Error){
-        res.end('error');
-        return;
-      }
-      
+    
 			payload = response.data;
 			//var x = payload.toString('base64');
        if (response.headers['transfer-encoding'] === 'chunked') {
