@@ -10,7 +10,7 @@ var https = require('https');
 var querystring = require('querystring');
 var merge = require('lodash');
 const path = require('path');
-var maindomain = "hpjav.tv";
+var maindomain = "hentaivn.net";
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -44,14 +44,13 @@ var params = function(req) {
 function myMiddleware (req, res, next) {
    // Maintain a collection of URL overriding parameters
 	var params = {};
-  var maindomain = "hpjav.tv";
 	// Is the entire path the request?
 	// i.e. http://proxy-server/http://thirdparty.com/request/to/be/proxied
 	//var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
   var resourceURL = req.url.replace(/\/\.netlify\/functions\/server\//ig,'');
 // Options
 	resourceURL = "https://"+maindomain+"/"+resourceURL
-	res.end("resourceURL "+resourceURL);
+	//res.end("resourceURL "+resourceURL);
 	var proxyOptions = url.parse(resourceURL);
 	proxyOptions.headers = {};
 	merge.merge( proxyOptions.headers, req.headers, querystring.parse( params.headers ) );
