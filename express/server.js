@@ -10,7 +10,7 @@ var https = require('https');
 var querystring = require('querystring');
 var merge = require('lodash');
 const path = require('path');
-var maindomain = "hentaivn.moe";
+var maindomain = "allporncomic.com";
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
@@ -42,6 +42,7 @@ var params = function(req) {
 }
 
 function myMiddleware (req, res, next) {
+  var maindomain = "allporncomic.com";
    // Maintain a collection of URL overriding parameters
 	var params = {};
 	// Is the entire path the request?
