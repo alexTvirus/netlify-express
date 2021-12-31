@@ -63,12 +63,29 @@ function myMiddleware (req, res, next) {
 	// remove unwanted headers in the request
 	delete proxyOptions.headers.host;
 
+	delete proxyOptions.headers['accept-encoding'];
+	proxyOptions.url = resourceURL
 	// Augment the request
 	// Lets go and see if the value in here matches something which is stored locally
-	intervene( proxyOptions, proxyRequest( req ).bind( null, proxyOptions, res ) );
 
-   // keep executing the router middleware
-   //next()
+	const options = {
+		url: proxyOptions.url,
+		method: proxyOptions.method,
+		headers: proxyOptions.headers
+	}
+		axios(options)
+		.then(response => {
+			payload = response.data;
+			//var x = payload.toString('base64');
+			res.writeHead(response.status,response.headers);
+			res.write(payload);
+			//res.write(`data: ${JSON.stringify(x)}\n\n`);
+			res.end();
+		}).catch(err => {
+		console.log(err);
+		res.end();
+		//return false
+	});
 }
 
 app.use(myMiddleware)
