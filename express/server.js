@@ -106,7 +106,7 @@ function myMiddleware (req, res, next) {
 
 function updateLinksInHTML(html) {
   return html.replace(/href="(.*?)"/g, (match, $1) => { // g flag to replace all links
-    return 'href="/.netlify/functions/server/' + $1 + '"'; // return the string with your format
+    return 'href="/.netlify/functions/server' + $1 + '"'; // return the string with your format
   })
 }
 
