@@ -163,7 +163,11 @@ function error(res) {
 
 //--------------------------
 
-
+app.get('/.netlify/functions/server/another1', (req, res) => {
+   
+   res.writeHead(200, { 'Content-Type': 'text/html' });
+  res.end("test");
+});
 
 
 app.get('/.netlify/functions/server/request-mymin', (req, res) => {
