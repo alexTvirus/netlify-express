@@ -1,6 +1,5 @@
 "use strict";
 
-var debug = require("debug")("cac:redirects");
 
 module.exports = function (/*config*/) {
   function proxyRedirects(data) {
@@ -26,11 +25,7 @@ module.exports = function (/*config*/) {
             ? "https:"
             : "http:"
           : "") + data.headers.location; // the cookie handler uses this to know to possibly copy cookies between protocols or subdomains
-      debug(
-        "rewriting redirect from %s to %s",
-        data.headers.location,
-        location
-      );
+
       data.headers.location = location;
     }
   }

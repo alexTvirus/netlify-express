@@ -16,7 +16,7 @@
 var URL = require("url");
 var Transform = require("stream").Transform;
 var contentTypes = require("./content-types.js");
-var debug = require("debug")("cac:url-prefixer");
+
 
 function urlPrefixer(config) {
   var re_abs_url = /("|'|=|url\(\s*)(https?:)/gi, // "http:, 'http:, =http:, or url( http:, also matches https versions

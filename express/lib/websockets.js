@@ -1,7 +1,6 @@
 "use strict";
 var http = require("http"),
   https = require("https");
-var debugWS = require("debug")("cac:websocket");
 
 module.exports = function (config) {
   function proxyWebsocket(data) {
@@ -34,10 +33,8 @@ module.exports = function (config) {
     // what protocol to use for outgoing connections.
     var proto = uri.protocol == "https:" ? https : http;
 
-    debugWS("sending remote request: ", options);
 
     data.remoteRequest = proto.request(options, function (remoteResponse) {
-      debugWS("websocket remote response recieved");
       data.remoteResponse = remoteResponse;
       data.remoteResponse.on("error", onError);
     });
@@ -45,7 +42,6 @@ module.exports = function (config) {
     data.remoteRequest.on("error", onError);
 
     if (clientHead && clientHead.length) {
-      debugWS("sending clientHead", clientHead);
       data.remoteRequest.write(clientHead);
     }
 
@@ -54,7 +50,6 @@ module.exports = function (config) {
     data.remoteRequest.on(
       "upgrade",
       function (remoteResponse, remoteSocket, remoteHead) {
-        debugWS("websocket proxy established", remoteResponse.rawHeaders);
 
         var key = true;
         var headers = "HTTP/1.1 101 Web Socket Protocol Handshake\r\n";
@@ -64,40 +59,28 @@ module.exports = function (config) {
         });
         headers += "\r\n";
 
-        debugWS("sending headers", headers);
 
         clientSocket.write(headers);
 
         data.remoteResponse = remoteResponse;
 
         if (remoteHead && remoteHead.length) {
-          debugWS("sending remoteHead", remoteHead);
           clientSocket.write(remoteHead);
         }
         clientSocket.pipe(remoteSocket);
         remoteSocket.pipe(clientSocket);
 
         clientSocket.on("error", function (err) {
-          debugWS("error in client socket", err);
           remoteSocket.end();
           clientSocket.end();
         });
 
         remoteSocket.on("error", function (err) {
-          debugWS("error in remote socket", err);
           clientSocket.end();
           remoteSocket.end();
         });
 
-        if (debugWS.enabled) {
-          // data dump
-          clientSocket.on("data", function (chunk) {
-            debugWS("from ws client: ", chunk.toString());
-          });
-          remoteSocket.on("data", function (chunk) {
-            debugWS("from ws remote: ", chunk.toString());
-          });
-        }
+
       }
     );
   }

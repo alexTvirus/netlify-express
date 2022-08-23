@@ -3,7 +3,6 @@
 var PassThrough = require("stream").PassThrough;
 var zlib = require("zlib");
 var contentTypes = require("./content-types.js");
-var debug = require("debug")("cac:decompress");
 
 module.exports = function (config) {
   function acceptableCompression(data) {
@@ -40,10 +39,7 @@ module.exports = function (config) {
 
   function decompressResponse(data) {
     if (contentTypes.shouldProcess(config, data) && shouldProcess(data)) {
-      debug(
-        "decompressing %s encoding and deleting content-encoding header",
-        data.headers["content-encoding"]
-      );
+
 
       // https://github.com/nfriedly/node-cac/pull/105
       // zlib streams can throw if given a source with no content

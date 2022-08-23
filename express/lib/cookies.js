@@ -6,7 +6,6 @@ var setCookie = require("set-cookie-parser");
 var TLD = require("tld");
 var Transform = require("stream").Transform;
 var contentTypes = require("./content-types.js");
-var debug = require("debug")("cac:cookies");
 var _ = require("lodash");
 
 /**
@@ -29,11 +28,7 @@ function cookies(config) {
     var uri = URL.parse(data.url, true); // true = parseQueryString
     if (uri.query[REDIRECT_QUERY_PARAM]) {
       var nextUri = URL.parse(uri.query[REDIRECT_QUERY_PARAM]);
-      debug(
-        "copying cookies from %s to %s",
-        data.url,
-        uri.query[REDIRECT_QUERY_PARAM]
-      );
+
       var cookies = libCookie.parse(data.headers.cookie || "");
       var setCookieHeaders = Object.keys(cookies).map(function (name) {
         var value = cookies[name];
@@ -69,7 +64,6 @@ function cookies(config) {
       decodeValues: false, // normally it calls decodeURIComponent on each value - but we want to just pass them along unchanged in this case.
     });
     if (cookies.length) {
-      debug("remaping set-cookie headers");
       data.headers["set-cookie"] = cookies.map(function (cookie) {
         var targetUri = nextUri || uri;
         cookie.path =
@@ -93,7 +87,6 @@ function cookies(config) {
         (diffProto || diffHost) &&
         TLD.registered(nextUri.hostname) == TLD.registered(uri.hostname)
       ) {
-        debug("copying cookies from %s to %s", data.url, data.redirectUrl);
 
         // get all of the old cookies (from the request) indexed by name, and create set-cookie headers for each one
         var oldCookies = libCookie.parse(
@@ -136,11 +129,7 @@ function cookies(config) {
           REDIRECT_QUERY_PARAM +
           "=" +
           encodeURIComponent(url);
-        debug(
-          "rewriting link from %s to %s in order to allow cookies to be copied over to new path",
-          proxiedUrl,
-          cookieProxiedUrl
-        );
+
         return cookieProxiedUrl;
       } else {
         // if neither the proto nor the host have changed, just replace it with the same string

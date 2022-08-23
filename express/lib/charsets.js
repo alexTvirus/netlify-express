@@ -1,5 +1,4 @@
 "use strict";
-var debug = require("debug")("cac:charsets");
 var Transform = require("stream").Transform;
 var PassThrough = require("stream").PassThrough;
 var iconv = require("iconv-lite");
@@ -21,9 +20,7 @@ function charsets(config) {
         // happy case, we know the encoding right away, so we can just return decode/recode streams
         data.charset = charset;
         data.stream = data.stream.pipe(iconv.decodeStream(charset));
-        debug("decoding %s charset via iconv stream", charset);
       } else if (mayContainMeta(data.contentType)) {
-        debug("decoding unknown charset via iconv html stream");
         data.charsetDecoder = new IconvHtmlStream();
         data.charsetDecoder.on("charset", function (charset) {
           // note: while the recode stream will accept content before this and just output utf-8, it shouldn't actually receive any data because the decode stream buffers until *after* this event
@@ -31,7 +28,6 @@ function charsets(config) {
         });
         data.stream = data.stream.pipe(data.charsetDecoder);
       } else {
-        debug("no charset info available, assuming utf8");
         // semi-happy case. we know the content needs parsed but have no way of knowing it's charset. Hopefully .toString() will be good enough. No recoding
         data.stream = data.stream.pipe(
           new PassThrough({
@@ -109,7 +105,6 @@ IconvHtmlStream.prototype.bufferAndTest = function (chunk, encoding, done) {
     // todo: try using something like https://www.npmjs.com/package/detect-character-encoding here (although probably not that one specifically since it doesn't work on windows or 32-bit *nix)
     this.startStreaming("utf8", encoding, done);
   } else {
-    debug("buffering");
     // otherwise just buffer the chunk. Call done() to ensure that we get the next one.
     done();
   }
@@ -179,11 +174,7 @@ MetaCharsetReplacerStream.prototype._transform = function (
         function (subChunk, xmlCharset, metaCharset) {
           var oldCharset = xmlCharset || metaCharset;
           var newSubChunk = subChunk.replace(oldCharset, "UTF-8");
-          debug(
-            "rewriting charset meta tag from %s to %s",
-            subChunk,
-            newSubChunk
-          );
+
           return newSubChunk;
         }
       )
