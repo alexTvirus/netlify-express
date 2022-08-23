@@ -12,6 +12,7 @@ var merge = require('lodash');
 const path = require('path');
 var maindomain = "www.thegioididong.com";
 
+
 var access_controls_headers = {'Access-Control-Allow-Origin': "*"};
 //app.use(bodyParser.json({limit: '50mb'}));
 //app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
