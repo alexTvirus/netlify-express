@@ -165,7 +165,16 @@ function error(res) {
 //--------------------------
 
 
-
+app.get('/.netlify/functions/server/test', (req, res) => {
+   res.writeHead(200, {
+        'Content-Type': 'text/html',
+        'Cache-Control': 'no-cache',
+        'Connection': 'keep-alive',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
+        'Access-Control-Allow-Origin': '*'
+    });
+    res.end();
+}
 
 app.get('/.netlify/functions/server/request-mymin', (req, res) => {
     // res.removeHeader('server');
