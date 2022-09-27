@@ -127,7 +127,10 @@ app.use((req, res) => {
   proxyOptions.headers["host"] = maindomain
   proxyOptions.method = req.method;
   proxyOptions.headers['x-request-id'] = Date.now()
-  console.log("1 "+JSON.stringify(proxyOptions.headers))
+  //console.log("1 "+JSON.stringify(proxyOptions.headers))
+  delete  proxyOptions.headers['x-country']
+  delete  proxyOptions.headers['x-forwarded-for']
+  delete  proxyOptions.headers['x-nf-client-connection-ip']
   intervene(proxyOptions, proxyRequest(req).bind(null, proxyOptions, res));
 
 });
