@@ -127,6 +127,7 @@ app.use((req, res) => {
   proxyOptions.headers["host"] = maindomain
   proxyOptions.method = req.method;
   proxyOptions.headers['x-request-id'] = Date.now()
+  console.log("1 "+JSON.stringify(proxyOptions.headers))
   intervene(proxyOptions, proxyRequest(req).bind(null, proxyOptions, res));
 
 });
