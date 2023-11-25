@@ -35,6 +35,13 @@ var params = function (req) {
 var request = function (opts, callback) {
   var req = (opts.protocol === 'https:' ? https : http).request(opts, callback);
   req.on('error', callback);
+  req.on('socket', function (socket) {
+		socket.setTimeout(15000);
+		socket.on('timeout', function() {
+			console.log("timeout")
+			req.abort();
+		});
+	});
   return req;
 };
 
